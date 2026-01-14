@@ -33,14 +33,14 @@ class LoginPage extends StatelessWidget {
         actions: [
           Container(
             height: 35.h,
-            width: 140.w,
+            width: 100.w,
             decoration: BoxDecoration(
               color: Color(0xFFF34859).withOpacity(0.3),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
               children: [
-                SizedBox(width: 10.w),
+                SizedBox(width: 5.w,),
                 Container(
                   width: 25.w,
                   height: 25.h,
@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(width: 5.w),
                 Text(
-                  "Google Login",
+                  "Google",
                   style: GoogleFonts.manrope(
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(255, 214, 81, 81),

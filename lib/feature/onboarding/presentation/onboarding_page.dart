@@ -41,12 +41,12 @@ class OnboardingPage extends StatelessWidget {
               fontSize: 16.sp,
             ),
           ),
-          SizedBox(height: 72.h),
+          SizedBox(height: 62.h),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               gradient: LinearGradient(
-                colors: [Color(0xFF48D0FE), Color(0xFF10B9F1)],
+                colors: [Color.fromARGB(255, 254, 99, 72), Color.fromARGB(255, 241, 50, 16)],
               ),
             ),
             child: ElevatedButton(
