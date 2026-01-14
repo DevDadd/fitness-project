@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+
+  "onboardingtitle": "Best workouts\nfor you",
+  "onboardingdes": "You will have everything you need to reach\nyour personal fitness goals - for free!",
+  "getstarted" : "Get started",
+  "login" : "Login",
+  "account" : "Account",
+  "password" : "Password",
+  "createaccount" : "Create account"
+}

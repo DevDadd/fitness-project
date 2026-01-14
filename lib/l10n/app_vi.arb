@@ -1,0 +1,11 @@
+{
+  "@@locale": "vi",
+
+  "onboardingtitle": "Những bài tập\ntốt nhất cho bạn",
+  "onboardingdes": "Bạn sẽ có tất cả những gì bạn cần để đạt\nmục tiêu thể dục riêng của bản thân - miễn phí!",
+  "getstarted" : "Bắt đầu",
+  "login" : "Đăng nhập",
+  "account" : "Tài khoản",
+  "password" : "Mật khẩu",
+  "createaccount" : "Tạo tài khoản"
+}
