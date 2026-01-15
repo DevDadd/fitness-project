@@ -29,4 +29,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createaccount => 'Create account';
+
+  @override
+  String get languagevn => '🇻🇳 Vietnamese';
+
+  @override
+  String get languageuk => '🇬🇧 English';
 }

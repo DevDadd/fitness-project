@@ -139,6 +139,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create account'**
   String get createaccount;
+
+  /// No description provided for @languagevn.
+  ///
+  /// In en, this message translates to:
+  /// **'🇻🇳 Vietnamese'**
+  String get languagevn;
+
+  /// No description provided for @languageuk.
+  ///
+  /// In en, this message translates to:
+  /// **'🇬🇧 English'**
+  String get languageuk;
 }
 
 class _AppLocalizationsDelegate

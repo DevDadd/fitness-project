@@ -7,5 +7,7 @@
   "login" : "Login",
   "account" : "Account",
   "password" : "Password",
-  "createaccount" : "Create account"
+  "createaccount" : "Create account",
+  "languagevn" : "🇻🇳 Vietnamese",
+  "languageuk" : "🇬🇧 English"
 }

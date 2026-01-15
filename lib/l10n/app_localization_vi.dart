@@ -29,4 +29,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get createaccount => 'Tạo tài khoản';
+
+  @override
+  String get languagevn => '🇻🇳 Tiếng Việt';
+
+  @override
+  String get languageuk => '🇬🇧 Tiếng Anh';
 }

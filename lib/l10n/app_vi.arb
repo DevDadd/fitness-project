@@ -7,5 +7,7 @@
   "login" : "Đăng nhập",
   "account" : "Tài khoản",
   "password" : "Mật khẩu",
-  "createaccount" : "Tạo tài khoản"
+  "createaccount" : "Tạo tài khoản",
+  "languagevn" : "🇻🇳 Tiếng Việt",
+  "languageuk" : "🇬🇧 Tiếng Anh"
 }
