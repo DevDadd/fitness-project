@@ -16,6 +16,7 @@ class OnboardingPage extends StatelessWidget {
         children: [
           SizedBox(
             width: 1.sw,
+            height: 0.45.sh,
             child: SvgPicture.asset(
               "assets/images/onboarding_bg.svg",
               fit: BoxFit.cover,
@@ -42,31 +43,33 @@ class OnboardingPage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 62.h),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: LinearGradient(
-                colors: [Color.fromARGB(255, 254, 99, 72), Color.fromARGB(255, 241, 50, 16)],
+          SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  colors: [Color.fromARGB(255, 254, 99, 72), Color.fromARGB(255, 241, 50, 16)],
+                ),
               ),
-            ),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(161.w, 46.h),
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-              ),
-              child: Text(
-                AppLocalizations.of(context)!.getstarted,
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(161.w, 46.h),
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!.getstarted,
+                  style: GoogleFonts.inter(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

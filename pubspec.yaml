@@ -79,6 +79,9 @@ flutter:
     - assets/icons/ic_password.svg
     - assets/icons/ic_faceid.svg
     - assets/icons/ic_fingerid.svg
+    - assets/images/flag_vn.svg
+    - assets/icons/ic_google.svg
+    - assets/icons/ic_facebook.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
