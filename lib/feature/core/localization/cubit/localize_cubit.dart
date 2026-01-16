@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-part 'localize_state.dart';
+import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
 
 class LocalizeCubit extends Cubit<LocalizeState> {
-  LocalizeCubit() : super(LocalizeInitial());
+  LocalizeCubit() : super(LocalizeState());
+  void setCurrentLanguage(String language) {
+    emit(state.copyWith(currentLanguage: language));
+  }
 }

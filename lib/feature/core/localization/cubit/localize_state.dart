@@ -1,10 +1,13 @@
-part of 'localize_cubit.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
 
-sealed class LocalizeState extends Equatable {
-  const LocalizeState();
+part 'localize_state.g.dart';
 
+@CopyWith()
+class LocalizeState extends Equatable {
+  LocalizeState({this.currentLanguage = "vi"});
+  String? currentLanguage;
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [currentLanguage];
 }
 
-final class LocalizeInitial extends LocalizeState {}

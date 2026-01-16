@@ -1,3 +1,5 @@
+import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
+import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
 import 'package:fitnessai/feature/onboarding/presentation/onboarding_page.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:fitnessai/l10n/l10n.dart';
@@ -20,18 +22,22 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SubjectBloc(),
-      child: ScreenUtilInit(
-        designSize: Size(414, 896),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        child: MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          locale: const Locale('vi'),
-          supportedLocales: L10n.all,
-          debugShowCheckedModeBanner: false,
-          home: OnboardingPage(),
-        ),
+      create: (context) => LocalizeCubit(),
+      child: BlocBuilder<LocalizeCubit, LocalizeState>(
+        builder: (context, state) {
+          return ScreenUtilInit(
+            designSize: Size(414, 896),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            child: MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              locale: Locale(state.currentLanguage.toString()),
+              supportedLocales: L10n.all,
+              debugShowCheckedModeBanner: false,
+              home: OnboardingPage(),
+            ),
+          );
+        },
       ),
     );
   }

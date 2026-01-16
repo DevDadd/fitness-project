@@ -1,5 +1,7 @@
+import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MenuItem extends StatelessWidget {
   const MenuItem({super.key});
@@ -15,6 +17,7 @@ class MenuItem extends StatelessWidget {
             context,
             title: AppLocalizations.of(context)!.languagevn,
             onTap: () {
+              context.read<LocalizeCubit>().setCurrentLanguage("vi");
               Navigator.pop(context);
               debugPrint('Change to VI');
             },
@@ -23,6 +26,7 @@ class MenuItem extends StatelessWidget {
             context,
             title: AppLocalizations.of(context)!.languageuk,
             onTap: () {
+              context.read<LocalizeCubit>().setCurrentLanguage("en");
               Navigator.pop(context);
               debugPrint('Change to EN');
             },

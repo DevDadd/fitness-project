@@ -8,12 +8,13 @@ class CustomTextField extends StatefulWidget {
   final String leadingIcon;
   final IconData? exitIcon;
   final double width;
-
+  final bool obscureText;
   const CustomTextField({
     super.key,
     required this.hintText,
     required this.leadingIcon,
     required this.width,
+    required this.obscureText,
     this.exitIcon,
   });
 
@@ -68,6 +69,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 cursorColor: Color.fromARGB(255, 214, 60, 76),
                 controller: _controller,
                 focusNode: _focusNode,
+                obscureText: widget.obscureText,
                 decoration: InputDecoration(
                   isDense: true,
                   labelText: widget.hintText,

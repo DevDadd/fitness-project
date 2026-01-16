@@ -113,6 +113,7 @@ class LoginPage extends StatelessWidget {
           children: [
             Center(
               child: CustomTextField(
+                obscureText: false,
                 hintText: AppLocalizations.of(context)!.account,
                 leadingIcon: "assets/icons/ic_profile.svg",
                 width: MediaQuery.sizeOf(context).width / 1.1,
@@ -126,6 +127,7 @@ class LoginPage extends StatelessWidget {
                   hintText: AppLocalizations.of(context)!.password,
                   leadingIcon: "assets/icons/ic_password.svg",
                   width: MediaQuery.sizeOf(context).width / 1.35,
+                  obscureText: true,
                 ),
                 SizedBox(width: 15.w),
                 Container(
