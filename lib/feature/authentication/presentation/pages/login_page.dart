@@ -18,6 +18,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isSavedPassword = false;
     return BlocBuilder<LocalizeCubit, LocalizeState>(
       builder: (context, state) {
         return Scaffold(
@@ -92,18 +93,6 @@ class LoginPage extends StatelessWidget {
                         arrowWidth: 20,
                       );
                     },
-                    // child: CircleAvatar(
-                    //   radius: 15.r,
-                    //   backgroundColor: Colors.transparent,
-                    //   child: ClipOval(
-                    //     child: SvgPicture.asset(
-                    //       'assets/images/flag_uk.svg',
-                    //       width: 40,
-                    //       height: 40,
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    // ),
                     child: state.currentLanguage == "vi"
                         ? CircleAvatar(
                             radius: 15.r,
@@ -179,7 +168,13 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Checkbox(value: true, onChanged: (_) {}),
+                    Text("Save password", style: GoogleFonts.manrope()),
+                  ],
+                ),
                 const Spacer(),
                 SafeArea(
                   child: Center(
