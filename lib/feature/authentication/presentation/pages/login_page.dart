@@ -13,12 +13,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:popover/popover.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isSavedPassword = false;
+
+  @override
   Widget build(BuildContext context) {
-    final bool isSavedPassword = false;
     return BlocBuilder<LocalizeCubit, LocalizeState>(
       builder: (context, state) {
         return Scaffold(
@@ -171,9 +177,46 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Checkbox(value: true, onChanged: (_) {}),
-                    Text("Save password", style: GoogleFonts.manrope()),
+                    Checkbox(
+                      value: isSavedPassword,
+                      onChanged: (value) {
+                        setState(() => isSavedPassword = value!);
+                      },
+                      fillColor: MaterialStateProperty.resolveWith(
+                        (_) => Colors.transparent,
+                      ),
+                      checkColor: Colors.green,
+                      side: MaterialStateBorderSide.resolveWith(
+                        (_) => const BorderSide(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                      ),
+                      overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.savepassword,
+                      style: GoogleFonts.manrope(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      AppLocalizations.of(context)!.forgotpassword,
+                      style: GoogleFonts.manrope(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 14.sp,
+                        color: const Color.fromARGB(255, 224, 65, 81),
+                      ),
+                    ),
                   ],
+                ),
+                Container(
+                  width: MediaQuery.sizeOf(context).width / 1.1,
+                  height: 1.h,
+                  color: Colors.black,
                 ),
                 const Spacer(),
                 SafeArea(

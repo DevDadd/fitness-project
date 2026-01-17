@@ -151,6 +151,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'🇬🇧 English'**
   String get languageuk;
+
+  /// No description provided for @savepassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Save password'**
+  String get savepassword;
+
+  /// No description provided for @forgotpassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotpassword;
 }
 
 class _AppLocalizationsDelegate

@@ -9,5 +9,7 @@
   "password" : "Password",
   "createaccount" : "Create account",
   "languagevn" : "🇻🇳 Vietnamese",
-  "languageuk" : "🇬🇧 English"
+  "languageuk" : "🇬🇧 English",
+  "savepassword" : "Save password",
+  "forgotpassword" : "Forgot password?"
 }

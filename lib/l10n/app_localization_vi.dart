@@ -35,4 +35,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get languageuk => '🇬🇧 Tiếng Anh';
+
+  @override
+  String get savepassword => 'Lưu mật khẩu';
+
+  @override
+  String get forgotpassword => 'Quên mật khẩu?';
 }

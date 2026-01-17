@@ -9,5 +9,7 @@
   "password" : "Mật khẩu",
   "createaccount" : "Tạo tài khoản",
   "languagevn" : "🇻🇳 Tiếng Việt",
-  "languageuk" : "🇬🇧 Tiếng Anh"
+  "languageuk" : "🇬🇧 Tiếng Anh",
+  "savepassword" : "Lưu mật khẩu",
+  "forgotpassword" : "Quên mật khẩu?"
 }

@@ -35,4 +35,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageuk => '🇬🇧 English';
+
+  @override
+  String get savepassword => 'Save password';
+
+  @override
+  String get forgotpassword => 'Forgot password?';
 }
