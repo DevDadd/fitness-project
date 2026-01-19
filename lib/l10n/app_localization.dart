@@ -163,6 +163,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forgot password?'**
   String get forgotpassword;
+
+  /// No description provided for @loginwithgoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Google'**
+  String get loginwithgoogle;
+
+  /// No description provided for @loginwithfb.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Facebook'**
+  String get loginwithfb;
 }
 
 class _AppLocalizationsDelegate

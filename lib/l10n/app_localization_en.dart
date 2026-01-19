@@ -41,4 +41,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forgotpassword => 'Forgot password?';
+
+  @override
+  String get loginwithgoogle => 'Login with Google';
+
+  @override
+  String get loginwithfb => 'Login with Facebook';
 }

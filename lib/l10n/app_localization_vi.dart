@@ -41,4 +41,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get forgotpassword => 'Quên mật khẩu?';
+
+  @override
+  String get loginwithgoogle => 'Đăng nhập với Google';
+
+  @override
+  String get loginwithfb => 'Đăng nhập với Facebook';
 }

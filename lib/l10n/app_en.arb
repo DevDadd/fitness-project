@@ -11,5 +11,7 @@
   "languagevn" : "🇻🇳 Vietnamese",
   "languageuk" : "🇬🇧 English",
   "savepassword" : "Save password",
-  "forgotpassword" : "Forgot password?"
+  "forgotpassword" : "Forgot password?",
+  "loginwithgoogle" : "Login with Google",
+  "loginwithfb" : "Login with Facebook"
 }

@@ -11,5 +11,7 @@
   "languagevn" : "🇻🇳 Tiếng Việt",
   "languageuk" : "🇬🇧 Tiếng Anh",
   "savepassword" : "Lưu mật khẩu",
-  "forgotpassword" : "Quên mật khẩu?"
+  "forgotpassword" : "Quên mật khẩu?",
+  "loginwithgoogle" : "Đăng nhập với Google",
+  "loginwithfb" : "Đăng nhập với Facebook"
 }

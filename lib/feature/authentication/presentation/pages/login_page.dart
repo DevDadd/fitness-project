@@ -47,85 +47,50 @@ class _LoginPageState extends State<LoginPage> {
               icon: SvgPicture.asset("assets/icons/ic_back.svg"),
             ),
             actions: [
-              Container(
-                height: 35.h,
-                width: 100.w,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF34859).withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 5.w),
-                    Container(
-                      width: 25.w,
-                      height: 25.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Center(
-                        child: FaIcon(
-                          FontAwesomeIcons.google,
-                          size: 20,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 5.w),
-                    Text(
-                      "Google",
-                      style: GoogleFonts.manrope(
-                        fontWeight: FontWeight.w900,
-                        color: const Color.fromARGB(255, 214, 81, 81),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(width: 15.w),
-              Builder(
-                builder: (ctx) {
-                  return GestureDetector(
-                    onTap: () {
-                      showPopover(
-                        context: ctx,
-                        bodyBuilder: (_) => const MenuItem(),
-                        direction: PopoverDirection.bottom,
-                        width: 250,
-                        height: 90,
-                        arrowHeight: 10,
-                        arrowWidth: 20,
-                      );
-                    },
-                    child: state.currentLanguage == "vi"
-                        ? CircleAvatar(
-                            radius: 15.r,
-                            backgroundColor: Colors.transparent,
-                            child: ClipOval(
-                              child: SvgPicture.asset(
-                                'assets/images/flag_vn.svg',
-                                width: 40,
-                                height: 40,
-                                fit: BoxFit.cover,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Builder(
+                  builder: (ctx) {
+                    return GestureDetector(
+                      onTap: () {
+                        showPopover(
+                          context: ctx,
+                          bodyBuilder: (_) => const MenuItem(),
+                          direction: PopoverDirection.bottom,
+                          width: 250,
+                          height: 90,
+                          arrowHeight: 10,
+                          arrowWidth: 20,
+                        );
+                      },
+                      child: state.currentLanguage == "vi"
+                          ? CircleAvatar(
+                              radius: 15.r,
+                              backgroundColor: Colors.transparent,
+                              child: ClipOval(
+                                child: SvgPicture.asset(
+                                  'assets/images/flag_vn.svg',
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: 15.r,
+                              backgroundColor: Colors.transparent,
+                              child: ClipOval(
+                                child: SvgPicture.asset(
+                                  'assets/images/flag_uk.svg',
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          )
-                        : CircleAvatar(
-                            radius: 15.r,
-                            backgroundColor: Colors.transparent,
-                            child: ClipOval(
-                              child: SvgPicture.asset(
-                                'assets/images/flag_uk.svg',
-                                width: 40,
-                                height: 40,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
 
               SizedBox(width: 10.w),
@@ -187,12 +152,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       checkColor: Colors.green,
                       side: MaterialStateBorderSide.resolveWith(
-                        (_) => const BorderSide(
-                          color: Colors.black,
-                          width: 2,
-                        ),
+                        (_) => const BorderSide(color: Colors.black, width: 2),
                       ),
-                      overlayColor: MaterialStateProperty.all(Colors.transparent),
+                      overlayColor: MaterialStateProperty.all(
+                        Colors.transparent,
+                      ),
                     ),
                     Text(
                       AppLocalizations.of(context)!.savepassword,
@@ -213,10 +177,84 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 15.h),
+                Row(
+                  children: const [
+                    Expanded(child: Divider(thickness: 1)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        'Đăng nhập khác',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    Expanded(child: Divider(thickness: 1)),
+                  ],
+                ),
+
+                SizedBox(height: 20.h),
                 Container(
                   width: MediaQuery.sizeOf(context).width / 1.1,
-                  height: 1.h,
-                  color: Colors.black,
+                  height: 45.h,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: const Color.fromARGB(255, 224, 65, 81),
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 15.r,
+                        child: ClipOval(
+                          child: Icon(
+                            FontAwesomeIcons.google,
+                            color: const Color.fromARGB(255, 224, 65, 81),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      Text(
+                        AppLocalizations.of(context)!.loginwithgoogle,
+                        style: GoogleFonts.manrope(fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  width: MediaQuery.sizeOf(context).width / 1.1,
+                  height: 45.h,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: const Color.fromARGB(255, 224, 65, 81),
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 15.r,
+                        child: ClipOval(
+                          child: Icon(
+                            FontAwesomeIcons.facebook,
+                            color: Color(0xFF1877F2),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      Text(
+                        AppLocalizations.of(context)!.loginwithfb,
+                        style: GoogleFonts.manrope(fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
                 ),
                 const Spacer(),
                 SafeArea(
