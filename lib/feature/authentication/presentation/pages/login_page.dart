@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fitnessai/feature/authentication/presentation/widgets/custom_text_field.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/menu_item.dart';
+import 'package:fitnessai/feature/authentication/presentation/widgets/other_login_button.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
@@ -193,68 +194,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 SizedBox(height: 20.h),
-                Container(
-                  width: MediaQuery.sizeOf(context).width / 1.1,
-                  height: 45.h,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: const Color.fromARGB(255, 224, 65, 81),
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 15.r,
-                        child: ClipOval(
-                          child: Icon(
-                            FontAwesomeIcons.google,
-                            color: const Color.fromARGB(255, 224, 65, 81),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
-                      Text(
-                        AppLocalizations.of(context)!.loginwithgoogle,
-                        style: GoogleFonts.manrope(fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ),
+                OtherLoginButton(inputIcon: FontAwesomeIcons.google, inputText: AppLocalizations.of(context)!.loginwithgoogle, iconColor: const Color.fromARGB(255, 224, 65, 81)),
                 SizedBox(height: 15),
-                Container(
-                  width: MediaQuery.sizeOf(context).width / 1.1,
-                  height: 45.h,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: const Color.fromARGB(255, 224, 65, 81),
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 15.r,
-                        child: ClipOval(
-                          child: Icon(
-                            FontAwesomeIcons.facebook,
-                            color: Color(0xFF1877F2),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
-                      Text(
-                        AppLocalizations.of(context)!.loginwithfb,
-                        style: GoogleFonts.manrope(fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
+                OtherLoginButton(
+                  inputIcon: FontAwesomeIcons.facebook,
+                  inputText: AppLocalizations.of(context)!.loginwithfb,
+                  iconColor: Color(0xFF1877F2),
                 ),
                 const Spacer(),
                 SafeArea(
