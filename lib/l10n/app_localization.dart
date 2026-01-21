@@ -175,6 +175,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login with Facebook'**
   String get loginwithfb;
+
+  /// No description provided for @signup.
+  ///
+  /// In en, this message translates to:
+  /// **'Signup'**
+  String get signup;
+
+  /// No description provided for @password2.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter password'**
+  String get password2;
+
+  /// No description provided for @alreadyhaveaccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have existed account?'**
+  String get alreadyhaveaccount;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:fitnessai/feature/authentication/presentation/pages/signup_page.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/custom_text_field.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/menu_item.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/other_login_button.dart';
@@ -15,14 +14,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:popover/popover.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   bool isSavedPassword = false;
 
   @override
@@ -36,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
             backgroundColor: Colors.white,
             elevation: 0,
             title: Text(
-              AppLocalizations.of(context)!.login,
+              AppLocalizations.of(context)!.signup,
               style: GoogleFonts.manrope(
                 fontWeight: FontWeight.w700,
                 fontSize: 25.sp,
@@ -114,71 +113,29 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 const SizedBox(height: 30),
-                Row(
-                  children: [
-                    CustomTextField(
-                      hintText: AppLocalizations.of(context)!.password,
-                      leadingIcon: "assets/icons/ic_password.svg",
-                      width: MediaQuery.sizeOf(context).width / 1.35,
-                      obscureText: true,
-                    ),
-                    SizedBox(width: 15.w),
-                    Container(
-                      width: 50.w,
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE7EAF3),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Platform.isAndroid
-                          ? SvgPicture.asset(
-                              "assets/icons/ic_fingerid.svg",
-                              color: const Color.fromARGB(255, 224, 65, 81),
-                            )
-                          : SvgPicture.asset(
-                              "assets/icons/ic_faceid.svg",
-                              color: const Color.fromARGB(255, 224, 65, 81),
-                            ),
-                    ),
-                  ],
+                CustomTextField(
+                  hintText: AppLocalizations.of(context)!.password,
+                  leadingIcon: "assets/icons/ic_password.svg",
+                  width: MediaQuery.sizeOf(context).width / 1.1,
+                  obscureText: true,
                 ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: isSavedPassword,
-                      onChanged: (value) {
-                        setState(() => isSavedPassword = value!);
-                      },
-                      fillColor: MaterialStateProperty.resolveWith(
-                        (_) => Colors.transparent,
-                      ),
-                      checkColor: Colors.green,
-                      side: MaterialStateBorderSide.resolveWith(
-                        (_) => const BorderSide(color: Colors.black, width: 2),
-                      ),
-                      overlayColor: MaterialStateProperty.all(
-                        Colors.transparent,
-                      ),
+                SizedBox(height: 30),
+                CustomTextField(
+                  hintText: AppLocalizations.of(context)!.password2,
+                  leadingIcon: "assets/icons/ic_password.svg",
+                  width: MediaQuery.sizeOf(context).width / 1.1,
+                  obscureText: true,
+                ),
+                SizedBox(height: 20.h),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    AppLocalizations.of(context)!.alreadyhaveaccount,
+                    style: GoogleFonts.manrope(
+                      color: const Color.fromARGB(255, 214, 60, 76),
+                      fontWeight: FontWeight.w600,
                     ),
-                    Text(
-                      AppLocalizations.of(context)!.savepassword,
-                      style: GoogleFonts.manrope(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      AppLocalizations.of(context)!.forgotpassword,
-                      style: GoogleFonts.manrope(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 14.sp,
-                        color: const Color.fromARGB(255, 224, 65, 81),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
                 SizedBox(height: 15.h),
                 Row(
@@ -194,7 +151,6 @@ class _LoginPageState extends State<LoginPage> {
                     Expanded(child: Divider(thickness: 1)),
                   ],
                 ),
-
                 SizedBox(height: 20.h),
                 OtherLoginButton(
                   inputIcon: FontAwesomeIcons.google,
@@ -221,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           child: Center(
                             child: Text(
-                              AppLocalizations.of(context)!.login,
+                              AppLocalizations.of(context)!.signup,
                               style: GoogleFonts.manrope(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -232,26 +188,21 @@ class _LoginPageState extends State<LoginPage> {
                         ),
 
                         const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignupPage(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width / 1.1,
-                            height: 50.h,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Center(
+                        Container(
+                          width: MediaQuery.sizeOf(context).width / 1.1,
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
                               child: Text(
-                                AppLocalizations.of(context)!.createaccount,
+                                AppLocalizations.of(context)!.login,
                                 style: GoogleFonts.manrope(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

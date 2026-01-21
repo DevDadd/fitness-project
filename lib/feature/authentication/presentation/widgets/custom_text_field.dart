@@ -46,7 +46,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     final bool isFocused = _focusNode.hasFocus;
-    
+
     return Container(
       width: widget.width,
       height: 60.h,

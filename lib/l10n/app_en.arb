@@ -13,5 +13,8 @@
   "savepassword" : "Save password",
   "forgotpassword" : "Forgot password?",
   "loginwithgoogle" : "Login with Google",
-  "loginwithfb" : "Login with Facebook"
+  "loginwithfb" : "Login with Facebook",
+  "signup" : "Signup",
+  "password2" : "Re-enter password",
+  "alreadyhaveaccount" : "Already have existed account?"
 }

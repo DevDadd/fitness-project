@@ -47,4 +47,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get loginwithfb => 'Đăng nhập với Facebook';
+
+  @override
+  String get signup => 'Đăng ký';
+
+  @override
+  String get password2 => 'Nhập lại mật khẩu';
+
+  @override
+  String get alreadyhaveaccount => 'Đã có tài khoản?';
 }

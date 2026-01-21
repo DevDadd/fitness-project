@@ -47,4 +47,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginwithfb => 'Login with Facebook';
+
+  @override
+  String get signup => 'Signup';
+
+  @override
+  String get password2 => 'Re-enter password';
+
+  @override
+  String get alreadyhaveaccount => 'Already have existed account?';
 }

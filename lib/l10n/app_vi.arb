@@ -13,5 +13,9 @@
   "savepassword" : "Lưu mật khẩu",
   "forgotpassword" : "Quên mật khẩu?",
   "loginwithgoogle" : "Đăng nhập với Google",
-  "loginwithfb" : "Đăng nhập với Facebook"
+  "loginwithfb" : "Đăng nhập với Facebook",
+  "signup" : "Đăng ký",
+  "password2" : "Nhập lại mật khẩu",
+  "alreadyhaveaccount" : "Đã có tài khoản?"
+
 }
