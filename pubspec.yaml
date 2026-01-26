@@ -47,6 +47,7 @@ dependencies:
   copy_with_extension_gen: ^10.0.1
   popover: ^0.3.1
   get_it: ^9.2.0
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,8 @@ flutter:
     - assets/images/flag_vn.svg
     - assets/icons/ic_google.svg
     - assets/icons/ic_facebook.svg
+    - assets/icons/ic_menu.svg
+    - assets/icons/ic_search.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
