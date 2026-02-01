@@ -50,6 +50,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.2
   pedometer: ^4.1.1
   json_annotation: ^4.9.0
+  permission_handler: ^12.0.1
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +91,7 @@ flutter:
     - assets/icons/ic_menu.svg
     - assets/icons/ic_search.svg
     - assets/icons/ic_walking.svg
+    - assets/icons/ic_heart.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

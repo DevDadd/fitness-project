@@ -1,5 +1,6 @@
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
+import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
 import 'package:fitnessai/feature/onboarding/presentation/onboarding_page.dart';
 import 'package:fitnessai/home_page_core.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
@@ -22,8 +23,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LocalizeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LocalizeCubit()),
+        BlocProvider(create: (context) => CoreCubit()),
+      ],
       child: BlocBuilder<LocalizeCubit, LocalizeState>(
         builder: (context, state) {
           return ScreenUtilInit(

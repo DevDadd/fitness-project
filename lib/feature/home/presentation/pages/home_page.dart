@@ -1,18 +1,32 @@
+import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
+import 'package:fitnessai/feature/home/presentation/cubit/core_state.dart';
+import 'package:fitnessai/feature/home/presentation/widgets/class_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/step_count_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final TextEditingController searchController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
     return Scaffold(
+      backgroundColor: Colors.white,
+
       appBar: AppBar(
         backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {},
           icon: SvgPicture.asset("assets/icons/ic_menu.svg"),
@@ -21,84 +35,138 @@ class HomePage extends StatelessWidget {
           "Hello, Username",
           style: GoogleFonts.inter(
             fontSize: 16.sp,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
           ),
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(right: 12.w),
             child: CircleAvatar(radius: 20.r, backgroundColor: Colors.red),
           ),
         ],
-        centerTitle: true,
       ),
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20),
-            child: Text(
-              "Find Your",
-              style: GoogleFonts.inter(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w500,
+
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20.h),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Text(
+                "Find Your",
+                style: GoogleFonts.inter(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Text(
-              "Workout Class",
-              style: GoogleFonts.inter(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Text(
+                "Workout Class",
+                style: GoogleFonts.inter(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 10.h),
-          Center(
-            child: Container(
-              width: 374.w,
-              height: 50.h,
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.circular(15.r),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 16.w),
-                  IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(
+
+            SizedBox(height: 16.h),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Container(
+                width: double.infinity,
+                height: 50.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F5F5),
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 12.w),
+                    SvgPicture.asset(
                       "assets/icons/ic_search.svg",
                       color: Colors.black,
                     ),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      cursorColor: Color.fromARGB(255, 224, 65, 81),
-                      controller: searchController,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        hintText: "Search",
-                        hintStyle: GoogleFonts.inter(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFFC4C4C4),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: TextField(
+                        controller: searchController,
+                        cursorColor: const Color(0xFFE04151),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Search",
+                          hintStyle: GoogleFonts.inter(
+                            fontSize: 16.sp,
+                            color: const Color(0xFFC4C4C4),
+                          ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: 20.h),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: BlocBuilder<CoreCubit, CoreState>(
+                buildWhen: (prev, curr) => prev.todaySteps != curr.todaySteps,
+                builder: (context, state) {
+                  return StepCountWidget(
+                    stepCount: state.todaySteps ?? 0,
+                    startDate: state.timestamp ?? DateTime.now(),
+                  );
+                },
+              ),
+            ),
+
+            SizedBox(height: 24.h),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "Recommendation Class",
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w800,
+                        color: const Color(0xFF2B2B2B),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "See all",
+                    style: GoogleFonts.inter(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF12BEF6),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          SizedBox(height: 15.h),
-          Center(child: StepCountWidget(stepCount: 1000)),
-        ],
+            SizedBox(height: 10.h),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: ClassWidget(
+                classTitle: "Yoga Class",
+                classDescription: "With Rachel Wisdom",
+                classImage: "Hi",
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
