@@ -71,6 +71,13 @@ class ClassWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10.r,
+                    offset: Offset(0, 8.h),
+                  ),
+                ],
               ),
               child: Icon(
                 FontAwesomeIcons.heart,

@@ -16,7 +16,7 @@ class StepCountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity, // ✅ responsive
+      width: double.infinity,
       height: 180.h,
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
