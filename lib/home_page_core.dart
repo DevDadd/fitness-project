@@ -20,8 +20,8 @@ class _HomePageCoreState extends State<HomePageCore> {
 
   final List<Widget> pages = const [
     HomePage(),
-    HistoryPage(),
     WorkoutlistPage(),
+    HistoryPage(),
     SettingPage(),
   ];
 
@@ -51,9 +51,9 @@ class _HomePageCoreState extends State<HomePageCore> {
             ),
           ),
           SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.clockRotateLeft, size: 25.sp),
+            icon: Icon(FontAwesomeIcons.dumbbell, size: 25.sp),
             title: Text(
-              "History",
+              "Workout",
               style: GoogleFonts.manrope(
                 fontWeight: FontWeight.w700,
                 fontSize: 15.sp,
@@ -61,9 +61,9 @@ class _HomePageCoreState extends State<HomePageCore> {
             ),
           ),
           SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.dumbbell, size: 25.sp),
+            icon: Icon(FontAwesomeIcons.clockRotateLeft, size: 25.sp),
             title: Text(
-              "Workout",
+              "History",
               style: GoogleFonts.manrope(
                 fontWeight: FontWeight.w700,
                 fontSize: 15.sp,
