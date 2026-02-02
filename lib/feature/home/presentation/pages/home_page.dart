@@ -1,11 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_state.dart';
+import 'package:fitnessai/feature/home/presentation/widgets/categories_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/class_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/step_count_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,18 +20,37 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
+  final List<CategoriesWidget> categories = [
+    CategoriesWidget(
+      categoryName: "Warm up",
+      categoryImage: "",
+      categoryBgColor: "DDF2FF",
+    ),
+    CategoriesWidget(
+      categoryName: "Cardio",
+      categoryImage: "",
+      categoryBgColor: "F1F3FA",
+    ),
+    CategoriesWidget(
+      categoryName: "Strength",
+      categoryImage: "",
+      categoryBgColor: "FFE6D6",
+    ),
+  ];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<CoreCubit>().initPlatformState();
+    // context.read<CoreCubit>().initPlatformState();
   }
-@override
+
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     searchController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {},
-          icon: SvgPicture.asset("assets/icons/ic_menu.svg"),
+          icon: Icon(Icons.qr_code_scanner_outlined, size: 25.sp),
         ),
         title: Text(
           "Hello, Username",
@@ -201,6 +223,26 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CarouselSlider.builder(
+                itemCount: categories.length,
+                itemBuilder: (context, index, realIndex) {
+                  return CategoriesWidget(
+                    categoryName: categories[index].categoryName,
+                    categoryImage: categories[index].categoryImage,
+                    categoryBgColor: categories[index].categoryBgColor,
+                  );
+                },
+                options: CarouselOptions(
+                  initialPage: 0,
+                  viewportFraction: 0.41,
+                  padEnds: false,
+                  enableInfiniteScroll: false,
+                ),
               ),
             ),
           ],
