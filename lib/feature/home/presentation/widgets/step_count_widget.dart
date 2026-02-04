@@ -35,42 +35,39 @@ class StepCountWidget extends StatelessWidget {
         children: [
           /// LEFT TEXT
           Expanded(
-            child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Today's\nStep",
-                    style: GoogleFonts.nunito(
-                      fontSize: 26.sp,
-                      fontWeight: FontWeight.w900,
-                      color: const Color(0xFF2B2B2B),
-                    ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Today's\nStep",
+                  style: GoogleFonts.nunito(
+                    fontSize: 23.sp,
+                    fontWeight: FontWeight.w900,
+                    color: const Color(0xFF2B2B2B),
                   ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    stepCount.toString(),
-                    style: GoogleFonts.inter(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w800,
-                      color: const Color(0xFF7A7A7A),
-                    ),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  stepCount.toString(),
+                  style: GoogleFonts.inter(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xFF7A7A7A),
                   ),
-                  Text(
-                    "Start: ${startDate.toString().split(' ')[0]}",
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: GoogleFonts.inter(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w800,
-                      color: const Color(0xFF7A7A7A),
-                    ),
+                ),
+                Text(
+                  "Start: ${startDate.toString().split(' ')[0]}",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: GoogleFonts.inter(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xFF7A7A7A),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
 
