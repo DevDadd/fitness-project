@@ -10,4 +10,3 @@ class LocalizeState extends Equatable {
   @override
   List<Object?> get props => [currentLanguage];
 }
-

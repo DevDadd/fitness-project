@@ -20,7 +20,7 @@ class StepCountWidget extends StatelessWidget {
       height: 180.h,
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: const Color(0xFFDDF2FF),
+        color: const Color(0xFFFFDDDD),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
@@ -73,7 +73,7 @@ class StepCountWidget extends StatelessWidget {
 
           /// RIGHT ICON
           SizedBox(width: 12.w),
-          SvgPicture.asset("assets/icons/ic_walking.svg"),
+          SvgPicture.asset("assets/icons/ic_walking.svg", color: Colors.red),
         ],
       ),
     );

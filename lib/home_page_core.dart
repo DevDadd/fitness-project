@@ -1,3 +1,5 @@
+import 'package:fitnessai/feature/history/presentation/controller/activity_page_controller.dart';
+import 'package:fitnessai/feature/home/presentation/controller/home_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,9 +21,9 @@ class _HomePageCoreState extends State<HomePageCore> {
   int currentIndex = 0;
 
   final List<Widget> pages = const [
-    HomePage(),
+    HomePageController(),
     WorkoutlistPage(),
-    HistoryPage(),
+    ActivityPageController(),
     SettingPage(),
   ];
 
@@ -63,7 +65,7 @@ class _HomePageCoreState extends State<HomePageCore> {
           SalomonBottomBarItem(
             icon: Icon(FontAwesomeIcons.clockRotateLeft, size: 25.sp),
             title: Text(
-              "History",
+              "Activity",
               style: GoogleFonts.manrope(
                 fontWeight: FontWeight.w700,
                 fontSize: 15.sp,
