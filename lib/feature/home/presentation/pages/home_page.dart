@@ -103,6 +103,7 @@ class _HomePageState extends State<HomePage> {
                 style: GoogleFonts.inter(
                   fontSize: 22.sp,
                   fontWeight: FontWeight.w800,
+                  color: const Color.fromARGB(255, 233, 89, 89),
                 ),
               ),
             ),
@@ -182,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                     style: GoogleFonts.inter(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xFF12BEF6),
+                      color: const Color.fromARGB(255, 233, 89, 89),
                     ),
                   ),
                 ],
@@ -218,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                     style: GoogleFonts.inter(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xFF12BEF6),
+                      color: const Color.fromARGB(255, 233, 89, 89),
                     ),
                   ),
                 ],
