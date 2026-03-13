@@ -19,6 +19,7 @@ class DifficultyWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: IntrinsicWidth(
+        stepWidth: 10.w,
         child: Container(
           height: 35.h,
           padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -35,7 +36,7 @@ class DifficultyWidget extends StatelessWidget {
                 difficultyLevel,
                 style: GoogleFonts.inter(
                   fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w700,
                   color: iconColor,
                 ),
               ),

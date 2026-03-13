@@ -9,7 +9,7 @@ part of 'workout_state.dart';
 abstract class _$WorkoutStateCWProxy {
   WorkoutState workoutsList(List<Workout> workoutsList);
 
-  WorkoutState difficultyLevels(List<String> difficultyLevels);
+  WorkoutState difficultyLevels(List<DifficultyModel> difficultyLevels);
 
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `WorkoutState(...).copyWith.fieldName(value)`.
@@ -20,7 +20,7 @@ abstract class _$WorkoutStateCWProxy {
   /// ```
   WorkoutState call({
     List<Workout> workoutsList,
-    List<String> difficultyLevels,
+    List<DifficultyModel> difficultyLevels,
   });
 }
 
@@ -36,7 +36,7 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
       call(workoutsList: workoutsList);
 
   @override
-  WorkoutState difficultyLevels(List<String> difficultyLevels) =>
+  WorkoutState difficultyLevels(List<DifficultyModel> difficultyLevels) =>
       call(difficultyLevels: difficultyLevels);
 
   @override
@@ -62,7 +62,7 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
               difficultyLevels == null
           ? _value.difficultyLevels
           // ignore: cast_nullable_to_non_nullable
-          : difficultyLevels as List<String>,
+          : difficultyLevels as List<DifficultyModel>,
     );
   }
 }

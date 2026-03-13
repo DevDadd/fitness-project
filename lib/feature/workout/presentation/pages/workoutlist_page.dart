@@ -1,6 +1,7 @@
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_cubit.dart';
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_state.dart';
 import 'package:fitnessai/feature/workout/presentation/widget/difficulty_widget.dart';
+import 'package:fitnessai/feature/workout/presentation/widget/exercises_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,7 @@ class _WorkoutlistPageState extends State<WorkoutlistPage> {
   @override
   void initState() {
     super.initState();
-    // context.read<WorkoutCubit>().getWorkouts();
+    context.read<WorkoutCubit>().getWorkouts();
     context.read<WorkoutCubit>().getDifficultyLevels();
   }
 
@@ -27,7 +28,7 @@ class _WorkoutlistPageState extends State<WorkoutlistPage> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -38,33 +39,81 @@ class _WorkoutlistPageState extends State<WorkoutlistPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
               SizedBox(height: 20.h),
+
               Text(
                 "Browse the workout list to find exercises that match your fitness level and goals.",
                 style: GoogleFonts.inter(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xFFC4C4C4),
+                  color: const Color(0xFFC4C4C4),
                 ),
               ),
+
               SizedBox(height: 20.h),
+
+              /// Difficulty Levels
               BlocBuilder<WorkoutCubit, WorkoutState>(
-                buildWhen: (p,c) => p.difficultyLevels != c.difficultyLevels,
+                buildWhen: (p, c) => p.difficultyLevels != c.difficultyLevels,
                 builder: (context, state) {
-                  return Expanded(
+                  return SizedBox(
+                    height: 40.h,
                     child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
                       itemCount: state.difficultyLevels.length,
                       itemBuilder: (context, index) {
-                        return DifficultyWidget(
-                          difficultyLevel: state.difficultyLevels[index],
-                          color: const Color.fromARGB(255, 145, 237, 155),
-                          icon: Icons.lock_clock,
-                          iconColor: const Color(0xFF00994D),
+                        final item = state.difficultyLevels[index];
+
+                        return Padding(
+                          padding: EdgeInsets.only(right: 10.w),
+                          child: DifficultyWidget(
+                            difficultyLevel: item.difficultyLevel,
+                            color: item.color,
+                            icon: item.icon,
+                            iconColor: item.iconColor,
+                          ),
                         );
                       },
                     ),
                   );
                 },
+              ),
+
+              SizedBox(height: 20.h),
+
+              Text(
+                "Exercises",
+                style: GoogleFonts.inter(
+                  fontSize: 23.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              SizedBox(height: 11.h),
+
+              Expanded(
+                child: BlocBuilder<WorkoutCubit, WorkoutState>(
+                  buildWhen: (p, c) => p.workoutsList != c.workoutsList,
+                  builder: (context, state) {
+                    return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: state.workoutsList.length,
+                      itemBuilder: (context, index) {
+                        final workout = state.workoutsList[index];
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 12.h),
+                          child: ExercisesWidget(
+                            exerciseName: workout.title ?? "",
+                            exercisLevel: workout.level ?? "",
+                            exerciseImage: workout.url ?? "",
+                            exerciseType: workout.type ?? "",
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),
