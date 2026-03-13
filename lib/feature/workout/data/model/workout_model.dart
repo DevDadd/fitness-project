@@ -1,3 +1,4 @@
+import 'package:fitnessai/feature/workout/domain/entity/workout.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'workout_model.g.dart';
@@ -47,4 +48,18 @@ class WorkoutModel {
       _$WorkoutModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$WorkoutModelToJson(this);
+}
+
+extension WorkoutModelMapper on WorkoutModel {
+  Workout toEntity() {
+    return Workout(
+      id: id,
+      title: title,
+      desc: desc,
+      level: level,
+      type: type,
+      rating: rating,
+      url: url,
+    );
+  }
 }

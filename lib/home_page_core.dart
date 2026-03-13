@@ -1,11 +1,9 @@
 import 'package:fitnessai/feature/history/presentation/controller/activity_page_controller.dart';
 import 'package:fitnessai/feature/home/presentation/controller/home_page_controller.dart';
+import 'package:fitnessai/feature/workout/presentation/controller/workout_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fitnessai/feature/home/presentation/pages/home_page.dart';
-import 'package:fitnessai/feature/history/presentation/pages/history_page.dart';
-import 'package:fitnessai/feature/workout/presentation/pages/workoutlist_page.dart';
 import 'package:fitnessai/feature/setting/presentation/pages/setting_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -22,7 +20,7 @@ class _HomePageCoreState extends State<HomePageCore> {
 
   final List<Widget> pages = const [
     HomePageController(),
-    WorkoutlistPage(),
+    WorkoutController(),
     ActivityPageController(),
     SettingPage(),
   ];
