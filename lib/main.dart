@@ -7,10 +7,13 @@ import 'package:fitnessai/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setup();
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
   runApp(
     BlocProvider.value(value: getIt<LocalizeCubit>(), child: const MyApp()),
   );

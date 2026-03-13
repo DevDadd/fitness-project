@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ExercisesWidget extends StatelessWidget {
@@ -25,13 +28,13 @@ class ExercisesWidget extends StatelessWidget {
           width: 68.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.r),
-            color: Colors.red,
+            color: Colors.transparent,
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.r),
-            child: Image.network(
-              exerciseImage,
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(imageUrl: exerciseImage, fit: BoxFit.cover,memCacheHeight: 200, memCacheWidth: 200,placeholder: (context, url) =>
+            const Center(child: CircularProgressIndicator()),errorWidget: (context, url, error) =>
+            const Icon(Icons.error),
             ),
           ),
         ),
@@ -61,6 +64,8 @@ class ExercisesWidget extends StatelessWidget {
             ],
           ),
         ),
+        Spacer(),
+        IconButton(onPressed: () {}, icon: Icon(FontAwesomeIcons.arrowRight))
       ],
     );
   }
