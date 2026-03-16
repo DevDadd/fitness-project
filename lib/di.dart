@@ -1,4 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:fitnessai/feature/home/search/data/datasource/search_service.dart';
+import 'package:fitnessai/feature/home/search/data/repository/search_repository_impl.dart';
+import 'package:fitnessai/feature/home/search/domain/repository/search_repository.dart';
+import 'package:fitnessai/feature/home/search/domain/usecases/search_usecase.dart';
+import 'package:fitnessai/feature/home/search/presentation/cubit/search_cubit.dart';
 import 'package:fitnessai/feature/workout/data/datasource/workout_service.dart';
 import 'package:fitnessai/feature/workout/data/repository/workout_datasource_impl.dart';
 import 'package:fitnessai/feature/workout/domain/repository/workout_repository.dart';
@@ -30,4 +35,16 @@ void setup() {
 
   getIt.registerFactory<WorkoutCubit>(
       () => WorkoutCubit(getIt<WorkoutUsecase>()));
+
+  getIt.registerFactory<SearchCubit>(
+      () => SearchCubit(getIt<SearchUsecase>()));
+
+  getIt.registerFactory<SearchUsecase>(
+      () => SearchUsecase(getIt<SearchRepository>()));
+
+  getIt.registerFactory<SearchRepository>(
+      () => SearchRepositoryImpl(getIt<SearchService>()));
+
+  getIt.registerFactory<SearchService>(
+      () => SearchService(getIt<Dio>()));
 }

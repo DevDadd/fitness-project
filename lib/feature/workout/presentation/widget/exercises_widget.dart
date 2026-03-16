@@ -32,9 +32,15 @@ class ExercisesWidget extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.r),
-            child: CachedNetworkImage(imageUrl: exerciseImage, fit: BoxFit.cover,memCacheHeight: 200, memCacheWidth: 200,placeholder: (context, url) =>
-            const Center(child: CircularProgressIndicator()),errorWidget: (context, url, error) =>
-            const Icon(Icons.error),
+            child: CachedNetworkImage(
+              imageUrl: exerciseImage,
+              fit: BoxFit.cover,
+              memCacheHeight: 200,
+              memCacheWidth: 200,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(color: Colors.redAccent),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
         ),
@@ -65,7 +71,7 @@ class ExercisesWidget extends StatelessWidget {
           ),
         ),
         Spacer(),
-        IconButton(onPressed: () {}, icon: Icon(FontAwesomeIcons.arrowRight))
+        IconButton(onPressed: () {}, icon: Icon(FontAwesomeIcons.arrowRight)),
       ],
     );
   }
