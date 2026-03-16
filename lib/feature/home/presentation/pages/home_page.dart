@@ -4,6 +4,8 @@ import 'package:fitnessai/feature/home/presentation/cubit/core_state.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/categories_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/class_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/step_count_widget.dart';
+import 'package:fitnessai/feature/home/presentation/widgets/suggestion_dropdown.dart';
+import 'package:fitnessai/feature/home/search/presentation/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -112,37 +114,46 @@ class _HomePageState extends State<HomePage> {
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Container(
-                width: double.infinity,
-                height: 50.h,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(15.r),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 12.w),
-                    SvgPicture.asset(
-                      "assets/icons/ic_search.svg",
-                      color: Colors.black,
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15.r),
                     ),
-                    SizedBox(width: 12.w),
-                    Expanded(
-                      child: TextField(
-                        controller: searchController,
-                        cursorColor: const Color(0xFFE04151),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Search",
-                          hintStyle: GoogleFonts.inter(
-                            fontSize: 16.sp,
-                            color: const Color(0xFFC4C4C4),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 12.w),
+                        SvgPicture.asset(
+                          "assets/icons/ic_search.svg",
+                          color: Colors.black,
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          child: TextField(
+                            onChanged: (value) {
+                              context.read<SearchCubit>().search(value);
+                            },
+                            controller: searchController,
+                            cursorColor: const Color(0xFFE04151),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Search",
+                              hintStyle: GoogleFonts.inter(
+                                fontSize: 16.sp,
+                                color: const Color(0xFFC4C4C4),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 6.h),
+                  const SuggestionDropdown(),
+                ],
               ),
             ),
 
