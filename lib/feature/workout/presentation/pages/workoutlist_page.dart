@@ -2,6 +2,7 @@ import 'package:fitnessai/feature/workout/presentation/cubit/workout_cubit.dart'
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_state.dart';
 import 'package:fitnessai/feature/workout/presentation/widget/difficulty_widget.dart';
 import 'package:fitnessai/feature/workout/presentation/widget/exercises_widget.dart';
+import 'package:fitnessai/feature/workout/presentation/widget/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +19,7 @@ class _WorkoutlistPageState extends State<WorkoutlistPage> {
   @override
   void initState() {
     super.initState();
-    context.read<WorkoutCubit>().getWorkouts();
+    // context.read<WorkoutCubit>().getWorkouts();
     context.read<WorkoutCubit>().getDifficultyLevels();
   }
 
@@ -96,6 +97,10 @@ class _WorkoutlistPageState extends State<WorkoutlistPage> {
                 child: BlocBuilder<WorkoutCubit, WorkoutState>(
                   buildWhen: (p, c) => p.workoutsList != c.workoutsList,
                   builder: (context, state) {
+                    if (state.workoutsList.isEmpty) {
+                      return const LoadingWidget();
+                    }
+
                     return ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: state.workoutsList.length,

@@ -1,7 +1,5 @@
-import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OtherLoginButton extends StatelessWidget {
@@ -31,9 +29,7 @@ class OtherLoginButton extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Colors.white,
             radius: 15.r,
-            child: ClipOval(
-              child: Icon(inputIcon, color: iconColor),
-            ),
+            child: ClipOval(child: Icon(inputIcon, color: iconColor)),
           ),
           SizedBox(width: 10.w),
           Text(
