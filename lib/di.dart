@@ -4,6 +4,7 @@ import 'package:fitnessai/feature/home/search/data/repository/search_repository_
 import 'package:fitnessai/feature/home/search/domain/repository/search_repository.dart';
 import 'package:fitnessai/feature/home/search/domain/usecases/search_usecase.dart';
 import 'package:fitnessai/feature/home/search/presentation/cubit/search_cubit.dart';
+import 'package:fitnessai/feature/map_drawing/presentation/cubit/mapdraw_cubit.dart';
 import 'package:fitnessai/feature/workout/data/datasource/workout_service.dart';
 import 'package:fitnessai/feature/workout/data/repository/workout_datasource_impl.dart';
 import 'package:fitnessai/feature/workout/domain/repository/workout_repository.dart';
@@ -17,34 +18,39 @@ import 'package:fitnessai/feature/workout/presentation/cubit/workout_cubit.dart'
 final getIt = GetIt.instance;
 
 void setup() {
-
   getIt.registerLazySingleton<Dio>(() => Dio());
 
   getIt.registerLazySingleton<WorkoutService>(
-      () => WorkoutService(getIt<Dio>()));
+    () => WorkoutService(getIt<Dio>()),
+  );
 
   getIt.registerLazySingleton<WorkoutRepository>(
-      () => WorkoutDatasourceImpl(getIt<WorkoutService>()));
+    () => WorkoutDatasourceImpl(getIt<WorkoutService>()),
+  );
 
   getIt.registerLazySingleton<WorkoutUsecase>(
-      () => WorkoutUsecase(getIt<WorkoutRepository>()));
+    () => WorkoutUsecase(getIt<WorkoutRepository>()),
+  );
 
   getIt.registerSingleton<LocalizeCubit>(LocalizeCubit());
   getIt.registerSingleton<CoreCubit>(CoreCubit());
   getIt.registerSingleton<ActivityCubit>(ActivityCubit());
 
   getIt.registerFactory<WorkoutCubit>(
-      () => WorkoutCubit(getIt<WorkoutUsecase>()));
+    () => WorkoutCubit(getIt<WorkoutUsecase>()),
+  );
 
-  getIt.registerFactory<SearchCubit>(
-      () => SearchCubit(getIt<SearchUsecase>()));
+  getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt<SearchUsecase>()));
 
   getIt.registerFactory<SearchUsecase>(
-      () => SearchUsecase(getIt<SearchRepository>()));
+    () => SearchUsecase(getIt<SearchRepository>()),
+  );
 
   getIt.registerFactory<SearchRepository>(
-      () => SearchRepositoryImpl(getIt<SearchService>()));
+    () => SearchRepositoryImpl(getIt<SearchService>()),
+  );
 
-  getIt.registerFactory<SearchService>(
-      () => SearchService(getIt<Dio>()));
+  getIt.registerFactory<SearchService>(() => SearchService(getIt<Dio>()));
+
+  getIt.registerSingleton<MapdrawCubit>(MapdrawCubit());
 }

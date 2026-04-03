@@ -6,6 +6,7 @@ import 'package:fitnessai/feature/home/presentation/widgets/class_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/step_count_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/suggestion_dropdown.dart';
 import 'package:fitnessai/feature/home/search/presentation/cubit/search_cubit.dart';
+import 'package:fitnessai/feature/map_drawing/controller/map_draw_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -160,11 +161,21 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20.h),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
-              child: ClassWidget(
-                classTitle: "Track your running",
-                classDescription: "Drawing line for your running",
-                classImage: "",
-                isRequiredFavorite: false,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapDrawController(),
+                    ),
+                  );
+                },
+                child: ClassWidget(
+                  classTitle: "Track your running",
+                  classDescription: "Drawing line for your running",
+                  classImage: "",
+                  isRequiredFavorite: false,
+                ),
               ),
             ),
             SizedBox(height: 20.h),
