@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,11 +7,13 @@ class ClassWidget extends StatelessWidget {
   final String classTitle;
   final String classDescription;
   final String classImage;
+  final bool isRequiredFavorite;
   ClassWidget({
     super.key,
     required this.classTitle,
     required this.classDescription,
     required this.classImage,
+    this.isRequiredFavorite = true,
   });
 
   @override
@@ -63,6 +64,7 @@ class ClassWidget extends StatelessWidget {
             ],
           ),
           Spacer(),
+          if(isRequiredFavorite)
           Padding(
             padding: const EdgeInsets.only(right: 18),
             child: Container(
@@ -86,6 +88,7 @@ class ClassWidget extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(),
         ],
       ),
     );

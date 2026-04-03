@@ -158,7 +158,16 @@ class _HomePageState extends State<HomePage> {
             ),
 
             SizedBox(height: 20.h),
-
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: ClassWidget(
+                classTitle: "Track your running",
+                classDescription: "Drawing line for your running",
+                classImage: "",
+                isRequiredFavorite: false,
+              ),
+            ),
+            SizedBox(height: 20.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: BlocBuilder<CoreCubit, CoreState>(
