@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,11 +7,13 @@ class ClassWidget extends StatelessWidget {
   final String classTitle;
   final String classDescription;
   final String classImage;
+  final bool isRequiredFavorite;
   ClassWidget({
     super.key,
     required this.classTitle,
     required this.classDescription,
     required this.classImage,
+    this.isRequiredFavorite = true,
   });
 
   @override
@@ -35,9 +36,13 @@ class ClassWidget extends StatelessWidget {
                 color: Color(0xFFDDF2FF),
                 borderRadius: BorderRadius.circular(15.r),
               ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.r),
+                child: Image.asset(classImage, fit: BoxFit.cover),
+              ),
             ),
           ),
-          SizedBox(width: 10.w),
+          SizedBox(width: 15.w),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,29 +68,31 @@ class ClassWidget extends StatelessWidget {
             ],
           ),
           Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(right: 18),
-            child: Container(
-              width: 30.w,
-              height: 30.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10.r,
-                    offset: Offset(0, 8.h),
-                  ),
-                ],
-              ),
-              child: Icon(
-                FontAwesomeIcons.heart,
-                size: 20.sp,
-                color: Color(0xFF0074B9),
+          if (isRequiredFavorite)
+            Padding(
+              padding: const EdgeInsets.only(right: 18),
+              child: Container(
+                width: 30.w,
+                height: 30.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10.r,
+                      offset: Offset(0, 8.h),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  FontAwesomeIcons.heart,
+                  size: 20.sp,
+                  color: Color(0xFF0074B9),
+                ),
               ),
             ),
-          ),
+          SizedBox(),
         ],
       ),
     );

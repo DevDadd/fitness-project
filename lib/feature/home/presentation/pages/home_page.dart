@@ -6,6 +6,7 @@ import 'package:fitnessai/feature/home/presentation/widgets/class_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/step_count_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/suggestion_dropdown.dart';
 import 'package:fitnessai/feature/home/search/presentation/cubit/search_cubit.dart';
+import 'package:fitnessai/feature/map_drawing/controller/map_draw_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -157,8 +158,61 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                children: [
+                  Text(
+                    "Suggest for you",
+                    style: GoogleFonts.inter(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    "See all",
+                    style: GoogleFonts.inter(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFFE04151),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapDrawController(),
+                    ),
+                  );
+                },
+                child: ClassWidget(
+                  classTitle: "Track your running",
+                  classDescription: "Drawing line for your running",
+                  classImage: "assets/images/map_image.jpg",
+                  isRequiredFavorite: false,
+                ),
+              ),
+            ),
             SizedBox(height: 20.h),
-
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Text(
+                "Track your steps today",
+                style: GoogleFonts.inter(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: BlocBuilder<CoreCubit, CoreState>(
@@ -206,7 +260,7 @@ class _HomePageState extends State<HomePage> {
               child: ClassWidget(
                 classTitle: "Yoga Class",
                 classDescription: "With Rachel Wisdom",
-                classImage: "Hi",
+                classImage: "assets/images/yoga.jpg",
               ),
             ),
             SizedBox(height: 15.h),
