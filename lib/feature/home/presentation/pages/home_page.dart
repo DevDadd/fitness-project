@@ -158,7 +158,30 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            SizedBox(height: 20.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                children: [
+                  Text(
+                    "Suggest for you",
+                    style: GoogleFonts.inter(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    "See all",
+                    style: GoogleFonts.inter(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFFE04151),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10.h),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: GestureDetector(
@@ -173,12 +196,23 @@ class _HomePageState extends State<HomePage> {
                 child: ClassWidget(
                   classTitle: "Track your running",
                   classDescription: "Drawing line for your running",
-                  classImage: "",
+                  classImage: "assets/images/map_image.jpg",
                   isRequiredFavorite: false,
                 ),
               ),
             ),
             SizedBox(height: 20.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Text(
+                "Track your steps today",
+                style: GoogleFonts.inter(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: BlocBuilder<CoreCubit, CoreState>(
@@ -226,7 +260,7 @@ class _HomePageState extends State<HomePage> {
               child: ClassWidget(
                 classTitle: "Yoga Class",
                 classDescription: "With Rachel Wisdom",
-                classImage: "Hi",
+                classImage: "assets/images/yoga.jpg",
               ),
             ),
             SizedBox(height: 15.h),

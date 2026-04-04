@@ -36,10 +36,10 @@ class ClassWidget extends StatelessWidget {
                 color: Color(0xFFDDF2FF),
                 borderRadius: BorderRadius.circular(15.r),
               ),
-              // child: ClipRRect(
-              //   borderRadius: BorderRadius.circular(15.r),
-              //   child: Image.asset(classImage, fit: BoxFit.cover),
-              // ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.r),
+                child: Image.asset(classImage, fit: BoxFit.cover),
+              ),
             ),
           ),
           SizedBox(width: 15.w),
