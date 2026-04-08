@@ -19,7 +19,7 @@ class _WorkoutlistPageState extends State<WorkoutlistPage> {
   @override
   void initState() {
     super.initState();
-    // context.read<WorkoutCubit>().getWorkouts();
+    context.read<WorkoutCubit>().getWorkouts();
     context.read<WorkoutCubit>().getDifficultyLevels();
   }
 
