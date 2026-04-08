@@ -121,14 +121,16 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
                 Row(
                   children: [
-                    CustomTextField(
-                      controller: passwordController,
-                      hintText: AppLocalizations.of(context)!.password,
-                      leadingIcon: "assets/icons/ic_password.svg",
-                      width: MediaQuery.sizeOf(context).width / 1.35,
-                      obscureText: true,
+                    Expanded(
+                      child: CustomTextField(
+                        controller: passwordController,
+                        hintText: AppLocalizations.of(context)!.password,
+                        leadingIcon: "assets/icons/ic_password.svg",
+                        width: double.infinity,
+                        obscureText: true,
+                      ),
                     ),
-                    SizedBox(width: 15.w),
+                    SizedBox(width: 12.w),
                     Container(
                       width: 50.w,
                       height: 50.h,
