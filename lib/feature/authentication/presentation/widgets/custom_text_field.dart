@@ -9,6 +9,7 @@ class CustomTextField extends StatefulWidget {
   final IconData? exitIcon;
   final double width;
   final bool obscureText;
+  final TextEditingController controller;
   const CustomTextField({
     super.key,
     required this.hintText,
@@ -16,6 +17,7 @@ class CustomTextField extends StatefulWidget {
     required this.width,
     required this.obscureText,
     this.exitIcon,
+    required this.controller,
   });
 
   @override
@@ -30,7 +32,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    _controller = TextEditingController();
+    _controller = widget.controller;
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -49,7 +51,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
     return Container(
       width: widget.width,
-      height: 60.h,
+      height: 70.h,
       decoration: BoxDecoration(
         color: Color(0xFFE7EAF3),
         borderRadius: BorderRadius.circular(20),

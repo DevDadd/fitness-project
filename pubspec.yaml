@@ -107,6 +107,7 @@ flutter:
     - assets/images/loading.svg
     - assets/images/map_image.jpg
     - assets/images/yoga.jpg
+    - assets/icons/ic_login_failed.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
