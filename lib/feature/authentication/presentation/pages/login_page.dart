@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:fitnessai/feature/authentication/controller/signup_controller.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
-import 'package:fitnessai/feature/authentication/presentation/pages/signup_page.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/custom_text_field.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/menu_item.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/other_login_button.dart';
@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: CustomTextField(
                     controller: emailController,
                     obscureText: false,
-                    hintText: AppLocalizations.of(context)!.account,
+                    hintText: "Gmail",
                     leadingIcon: "assets/icons/ic_profile.svg",
                     width: MediaQuery.sizeOf(context).width / 1.1,
                   ),
@@ -218,6 +218,10 @@ class _LoginPageState extends State<LoginPage> {
                   listenWhen: (previous, current) =>
                       previous.status != current.status,
                   listener: (context, state) {
+                    if (!(ModalRoute.of(context)?.isCurrent ?? false)) {
+                      return;
+                    }
+
                     if (state.status == AuthenticationStatus.success) {
                       Navigator.push(
                         context,
@@ -425,7 +429,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => SignupPage(),
+                                    builder: (context) => SignupController(),
                                   ),
                                 );
                               },

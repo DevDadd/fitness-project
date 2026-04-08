@@ -23,7 +23,9 @@ import 'package:fitnessai/feature/workout/presentation/cubit/workout_cubit.dart'
 final getIt = GetIt.instance;
 
 void setup() {
-  getIt.registerLazySingleton<Dio>(() => Dio());
+  getIt.registerLazySingleton<Dio>(
+    () => Dio(BaseOptions(contentType: Headers.jsonContentType)),
+  );
 
   getIt.registerLazySingleton<WorkoutService>(
     () => WorkoutService(getIt<Dio>()),

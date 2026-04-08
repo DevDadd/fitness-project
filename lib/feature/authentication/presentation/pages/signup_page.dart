@@ -1,5 +1,6 @@
-import 'dart:io';
-
+import 'package:fitnessai/feature/authentication/controller/login_controller.dart';
+import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
+import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/custom_text_field.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/menu_item.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/other_login_button.dart';
@@ -23,9 +24,10 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   bool isSavedPassword = false;
+  String selectedGender = 'male';
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController password2Controller = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocalizeCubit, LocalizeState>(
@@ -107,7 +109,7 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 Center(
                   child: CustomTextField(
-                    controller: emailController,
+                    controller: usernameController,
                     obscureText: false,
                     hintText: AppLocalizations.of(context)!.account,
                     leadingIcon: "assets/icons/ic_profile.svg",
@@ -125,20 +127,75 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 SizedBox(height: 30),
                 CustomTextField(
-                  controller: password2Controller,
-                  hintText: AppLocalizations.of(context)!.password2,
+                  controller: emailController,
+                  hintText: "Email",
                   leadingIcon: "assets/icons/ic_password.svg",
                   width: MediaQuery.sizeOf(context).width / 1.1,
-                  obscureText: true,
+                  obscureText: false,
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 30.h),
+                Container(
+                  width: MediaQuery.sizeOf(context).width / 1.1,
+                  height: 70.h,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE7EAF3),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.wc, color: Colors.black),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: DropdownButtonFormField<String>(
+                          value: selectedGender,
+                          dropdownColor: const Color(0xFFE0E0E0),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            labelText: 'Giới tính',
+                            labelStyle: GoogleFonts.manrope(),
+                            border: InputBorder.none,
+                          ),
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'male',
+                              child: Text('Male'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'female',
+                              child: Text('Female'),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            if (value == null) {
+                              return;
+                            }
+                            setState(() {
+                              selectedGender = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    AppLocalizations.of(context)!.alreadyhaveaccount,
-                    style: GoogleFonts.manrope(
-                      color: const Color.fromARGB(255, 214, 60, 76),
-                      fontWeight: FontWeight.w600,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginController(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.alreadyhaveaccount,
+                      style: GoogleFonts.manrope(
+                        color: const Color.fromARGB(255, 214, 60, 76),
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -169,55 +226,242 @@ class _SignupPageState extends State<SignupPage> {
                   iconColor: Color(0xFF1877F2),
                 ),
                 const Spacer(),
-                SafeArea(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: MediaQuery.sizeOf(context).width / 1.1,
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 214, 60, 76),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.of(context)!.signup,
-                              style: GoogleFonts.manrope(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
-                              ),
-                            ),
-                          ),
-                        ),
+                BlocListener<AuthenticationCubit, AuthenticationState>(
+                  listenWhen: (previous, current) =>
+                      previous.status != current.status,
+                  listener: (context, state) {
+                    if (!(ModalRoute.of(context)?.isCurrent ?? false)) {
+                      return;
+                    }
 
-                        const SizedBox(height: 10),
-                        Container(
-                          width: MediaQuery.sizeOf(context).width / 1.1,
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: GestureDetector(
+                    if (state.status == AuthenticationStatus.success) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginController(),
+                        ),
+                      ).then((_) {
+                        if (context.mounted) {
+                          context.read<AuthenticationCubit>().reset();
+                        }
+                      });
+                    }
+                    if (state.status == AuthenticationStatus.error) {
+                      showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (sheetContext) {
+                          return DraggableScrollableSheet(
+                            expand: false,
+                            initialChildSize: 0.34,
+                            minChildSize: 0.24,
+                            maxChildSize: 0.55,
+                            builder: (context, scrollController) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 8.h),
+                                    child: Center(
+                                      child: Container(
+                                        width: 40.w,
+                                        height: 4.h,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade400,
+                                          borderRadius: BorderRadius.circular(
+                                            2,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Material(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20.r),
+                                      ),
+                                      clipBehavior: Clip.antiAlias,
+                                      color: Colors.white,
+                                      child: SingleChildScrollView(
+                                        controller: scrollController,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20.w,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 30.h,
+                                                ),
+                                                child: SvgPicture.asset(
+                                                  'assets/icons/ic_login_failed.svg',
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                        Color.fromARGB(
+                                                          255,
+                                                          233,
+                                                          93,
+                                                          51,
+                                                        ),
+                                                        BlendMode.srcIn,
+                                                      ),
+                                                  width: 45.w,
+                                                  height: 45.h,
+                                                ),
+                                              ),
+                                              Text(
+                                                'Signup failed',
+                                                style: GoogleFonts.manrope(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 3.h),
+                                              Text(
+                                                state.errorMessage,
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.manrope(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10.h),
+                                              Text(
+                                                'Please try again',
+                                                style: GoogleFonts.manrope(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 20.h),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  "Understand",
+                                                  style: GoogleFonts.manrope(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14.sp,
+                                                    color: Colors.redAccent,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.h),
+                    child: SafeArea(
+                      child: Center(
+                        child: Column(
+                          children: [
+                            BlocBuilder<
+                              AuthenticationCubit,
+                              AuthenticationState
+                            >(
+                              buildWhen: (previous, current) =>
+                                  previous.status != current.status,
+                              builder: (context, state) {
+                                final loading =
+                                    state.status ==
+                                    AuthenticationStatus.loading;
+                                return GestureDetector(
+                                  onTap: loading
+                                      ? null
+                                      : () {
+                                          context
+                                              .read<AuthenticationCubit>()
+                                              .register(
+                                                usernameController.text.trim(),
+                                                emailController.text.trim(),
+                                                passwordController.text.trim(),
+                                                selectedGender.trim(),
+                                              );
+                                        },
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width / 1.1,
+                                    height: 50.h,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        255,
+                                        214,
+                                        60,
+                                        76,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: loading
+                                          ? SizedBox(
+                                              width: 22,
+                                              height: 22,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          : Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.signup,
+                                              style: GoogleFonts.manrope(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.sp,
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            GestureDetector(
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: Text(
-                                AppLocalizations.of(context)!.login,
-                                style: GoogleFonts.manrope(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.sp,
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width / 1.1,
+                                height: 50.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.login,
+                                    style: GoogleFonts.manrope(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.sp,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

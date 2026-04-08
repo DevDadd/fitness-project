@@ -7,4 +7,18 @@ class AuthenticationUsecase {
   Future<LoginResponse> login(String email, String password) async {
     return await authenticationRepository.login(email, password);
   }
+
+  Future<LoginResponse> register(
+    String user_name,
+    String email,
+    String password,
+    String gender,
+  ) async {
+    return await authenticationRepository.register(
+      user_name,
+      email,
+      password,
+      gender,
+    );
+  }
 }

@@ -18,10 +18,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
 
     emit(
-      state.copyWith(
-        status: AuthenticationStatus.loading,
-        errorMessage: '',
-      ),
+      state.copyWith(status: AuthenticationStatus.loading, errorMessage: ''),
     );
 
     try {
@@ -48,6 +45,53 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         state.copyWith(
           status: AuthenticationStatus.error,
           errorMessage: "Unknown error",
+        ),
+      );
+    }
+  }
+
+  Future<void> register(
+    String userName,
+    String email,
+    String password,
+    String gender,
+  ) async {
+    if (state.status == AuthenticationStatus.loading) {
+      return;
+    }
+
+    emit(
+      state.copyWith(status: AuthenticationStatus.loading, errorMessage: ''),
+    );
+
+    try {
+      final response = await authenticationUsecase.register(
+        userName,
+        email,
+        password,
+        gender,
+      );
+
+      emit(
+        state.copyWith(
+          status: AuthenticationStatus.success,
+          loginResponse: response,
+          errorMessage: '',
+        ),
+      );
+    } on DioException catch (e) {
+      final errorMessage = _handleDioError(e);
+      emit(
+        state.copyWith(
+          status: AuthenticationStatus.error,
+          errorMessage: errorMessage,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: AuthenticationStatus.error,
+          errorMessage: 'Unknown error',
         ),
       );
     }
