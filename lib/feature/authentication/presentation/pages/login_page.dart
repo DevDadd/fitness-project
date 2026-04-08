@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
+import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
 import 'package:fitnessai/feature/authentication/presentation/pages/signup_page.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/custom_text_field.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/menu_item.dart';
 import 'package:fitnessai/feature/authentication/presentation/widgets/other_login_button.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
+import 'package:fitnessai/home_page_core_provider.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +27,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isSavedPassword = false;
-
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocalizeCubit, LocalizeState>(
@@ -106,6 +110,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Center(
                   child: CustomTextField(
+                    controller: emailController,
                     obscureText: false,
                     hintText: AppLocalizations.of(context)!.account,
                     leadingIcon: "assets/icons/ic_profile.svg",
@@ -117,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   children: [
                     CustomTextField(
+                      controller: passwordController,
                       hintText: AppLocalizations.of(context)!.password,
                       leadingIcon: "assets/icons/ic_password.svg",
                       width: MediaQuery.sizeOf(context).width / 1.35,
@@ -208,60 +214,244 @@ class _LoginPageState extends State<LoginPage> {
                   iconColor: Color(0xFF1877F2),
                 ),
                 const Spacer(),
-                SafeArea(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: MediaQuery.sizeOf(context).width / 1.1,
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 214, 60, 76),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.of(context)!.login,
-                              style: GoogleFonts.manrope(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
-                              ),
-                            ),
-                          ),
+                BlocListener<AuthenticationCubit, AuthenticationState>(
+                  listenWhen: (previous, current) =>
+                      previous.status != current.status,
+                  listener: (context, state) {
+                    if (state.status == AuthenticationStatus.success) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePageCoreProvider(),
                         ),
+                      ).then((_) {
+                        if (context.mounted) {
+                          context.read<AuthenticationCubit>().reset();
+                        }
+                      });
+                    }
 
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignupPage(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width / 1.1,
-                            height: 50.h,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(20),
+                    if (state.status == AuthenticationStatus.error) {
+                      showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (sheetContext) {
+                          return DraggableScrollableSheet(
+                            expand: false,
+                            initialChildSize: 0.34,
+                            minChildSize: 0.24,
+                            maxChildSize: 0.55,
+                            builder: (context, scrollController) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 8.h),
+                                    child: Center(
+                                      child: Container(
+                                        width: 40.w,
+                                        height: 4.h,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade400,
+                                          borderRadius: BorderRadius.circular(
+                                            2,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Material(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20.r),
+                                      ),
+                                      clipBehavior: Clip.antiAlias,
+                                      color: Colors.white,
+                                      child: SingleChildScrollView(
+                                        controller: scrollController,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20.w,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 30.h,
+                                                ),
+                                                child: SvgPicture.asset(
+                                                  'assets/icons/ic_login_failed.svg',
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                        Color.fromARGB(
+                                                          255,
+                                                          233,
+                                                          93,
+                                                          51,
+                                                        ),
+                                                        BlendMode.srcIn,
+                                                      ),
+                                                  width: 45.w,
+                                                  height: 45.h,
+                                                ),
+                                              ),
+                                              Text(
+                                                'Login failed',
+                                                style: GoogleFonts.manrope(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 3.h),
+                                              Text(
+                                                state.errorMessage,
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.manrope(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10.h),
+                                              Text(
+                                                'Please try again',
+                                                style: GoogleFonts.manrope(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(height: 20.h),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  "Understand",
+                                                  style: GoogleFonts.manrope(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14.sp,
+                                                    color: Colors.redAccent,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.h),
+                    child: SafeArea(
+                      child: Center(
+                        child: Column(
+                          children: [
+                            BlocBuilder<
+                              AuthenticationCubit,
+                              AuthenticationState
+                            >(
+                              buildWhen: (previous, current) =>
+                                  previous.status != current.status,
+                              builder: (context, state) {
+                                final loading =
+                                    state.status ==
+                                    AuthenticationStatus.loading;
+                                return GestureDetector(
+                                  onTap: loading
+                                      ? null
+                                      : () {
+                                          context
+                                              .read<AuthenticationCubit>()
+                                              .login(
+                                                emailController.text,
+                                                passwordController.text,
+                                              );
+                                        },
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width / 1.1,
+                                    height: 50.h,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        255,
+                                        214,
+                                        60,
+                                        76,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: loading
+                                          ? SizedBox(
+                                              width: 22,
+                                              height: 22,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          : Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.login,
+                                              style: GoogleFonts.manrope(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.sp,
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                            child: Center(
-                              child: Text(
-                                AppLocalizations.of(context)!.createaccount,
-                                style: GoogleFonts.manrope(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.sp,
+
+                            const SizedBox(height: 10),
+
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignupPage(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width / 1.1,
+                                height: 50.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.createaccount,
+                                    style: GoogleFonts.manrope(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.sp,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

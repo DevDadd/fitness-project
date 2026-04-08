@@ -23,7 +23,9 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   bool isSavedPassword = false;
-
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController password2Controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocalizeCubit, LocalizeState>(
@@ -105,6 +107,7 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 Center(
                   child: CustomTextField(
+                    controller: emailController,
                     obscureText: false,
                     hintText: AppLocalizations.of(context)!.account,
                     leadingIcon: "assets/icons/ic_profile.svg",
@@ -114,6 +117,7 @@ class _SignupPageState extends State<SignupPage> {
 
                 const SizedBox(height: 30),
                 CustomTextField(
+                  controller: passwordController,
                   hintText: AppLocalizations.of(context)!.password,
                   leadingIcon: "assets/icons/ic_password.svg",
                   width: MediaQuery.sizeOf(context).width / 1.1,
@@ -121,6 +125,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 SizedBox(height: 30),
                 CustomTextField(
+                  controller: password2Controller,
                   hintText: AppLocalizations.of(context)!.password2,
                   leadingIcon: "assets/icons/ic_password.svg",
                   width: MediaQuery.sizeOf(context).width / 1.1,

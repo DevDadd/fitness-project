@@ -1,4 +1,6 @@
 import 'package:fitnessai/di.dart';
+import 'package:fitnessai/feature/authentication/controller/login_controller.dart';
+import 'package:fitnessai/feature/authentication/presentation/pages/login_page.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
 import 'package:fitnessai/home_page_core_provider.dart';
@@ -41,7 +43,7 @@ class _MyAppState extends State<MyApp> {
             locale: Locale(state.currentLanguage.toString()),
             supportedLocales: L10n.all,
             debugShowCheckedModeBanner: false,
-            home: HomePageCoreProvider(),
+            home: LoginController(),
           ),
         );
       },

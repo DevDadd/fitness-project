@@ -1,4 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
+import 'package:fitnessai/feature/authentication/data/datasource/authentication_service.dart';
+import 'package:fitnessai/feature/authentication/data/repository/authentication_repository_impl.dart';
+import 'package:fitnessai/feature/authentication/domain/repository/authentication_repository.dart';
+import 'package:fitnessai/feature/authentication/domain/usecases/authentication_usecase.dart';
 import 'package:fitnessai/feature/home/search/data/datasource/search_service.dart';
 import 'package:fitnessai/feature/home/search/data/repository/search_repository_impl.dart';
 import 'package:fitnessai/feature/home/search/domain/repository/search_repository.dart';
@@ -53,4 +58,16 @@ void setup() {
   getIt.registerFactory<SearchService>(() => SearchService(getIt<Dio>()));
 
   getIt.registerSingleton<MapdrawCubit>(MapdrawCubit());
+  getIt.registerLazySingleton<AuthenticationCubit>(
+    () => AuthenticationCubit(getIt<AuthenticationUsecase>()),
+  );
+  getIt.registerFactory<AuthenticationUsecase>(
+    () => AuthenticationUsecase(getIt<AuthenticationRepository>()),
+  );
+  getIt.registerFactory<AuthenticationRepository>(
+    () => AuthenticationRepositoryImpl(getIt<AuthenticationService>()),
+  );
+  getIt.registerFactory<AuthenticationService>(
+    () => AuthenticationService(getIt<Dio>()),
+  );
 }
