@@ -14,19 +14,19 @@ class WorkoutModel {
   @JsonKey(name: "_rev")
   String? rev;
 
-  @JsonKey(name: "Desc")
+  @JsonKey(name: "description")
   String? desc;
 
-  @JsonKey(name: "Level")
+  @JsonKey(name: "level")
   String? level;
 
-  @JsonKey(name: "Rating")
+  @JsonKey(name: "rating")
   double? rating;
 
-  @JsonKey(name: "Title")
+  @JsonKey(name: "title")
   String? title;
 
-  @JsonKey(name: "Type")
+  @JsonKey(name: "type")
   String? type;
 
   @JsonKey(name: "url")
