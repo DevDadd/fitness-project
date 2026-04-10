@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
+import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_state.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/categories_widget.dart';
@@ -22,6 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
+
   final List<CategoriesWidget> categories = [
     CategoriesWidget(
       categoryName: "Warm up",
@@ -39,280 +42,297 @@ class _HomePageState extends State<HomePage> {
       categoryBgColor: "FFE6D6",
     ),
   ];
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // context.read<CoreCubit>().initPlatformState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.qr_code_scanner_outlined, size: 25.sp),
-        ),
-        title: Text(
-          "Hello, Username",
-          style: GoogleFonts.inter(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 12.w),
-            child: CircleAvatar(radius: 20.r, backgroundColor: Colors.red),
-          ),
-        ],
-      ),
-
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20.h),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Text(
-                "Find Your",
-                style: GoogleFonts.inter(
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+      buildWhen: (previous, current) {
+        return previous.status != current.status;
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: true,
+            leading: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.qr_code_scanner_outlined, size: 25.sp),
+            ),
+            title: Text(
+              "Hello, Username",
+              style: GoogleFonts.inter(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Text(
-                "Workout Class",
-                style: GoogleFonts.inter(
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w800,
-                  color: const Color.fromARGB(255, 233, 89, 89),
-                ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(right: 12.w),
+                child: CircleAvatar(radius: 20.r, backgroundColor: Colors.red),
               ),
-            ),
+            ],
+          ),
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20.h),
 
-            SizedBox(height: 16.h),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.circular(15.r),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 12.w),
-                        SvgPicture.asset(
-                          "assets/icons/ic_search.svg",
-                          color: Colors.black,
-                        ),
-                        SizedBox(width: 12.w),
-                        Expanded(
-                          child: TextField(
-                            onChanged: (value) {
-                              context.read<SearchCubit>().search(value);
-                            },
-                            controller: searchController,
-                            cursorColor: const Color(0xFFE04151),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Search",
-                              hintStyle: GoogleFonts.inter(
-                                fontSize: 16.sp,
-                                color: const Color(0xFFC4C4C4),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Text(
+                    "Find Your",
+                    style: GoogleFonts.inter(
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(height: 6.h),
-                  const SuggestionDropdown(),
-                ],
-              ),
-            ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Text(
+                    "Workout Class",
+                    style: GoogleFonts.inter(
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w800,
+                      color: const Color.fromARGB(255, 233, 89, 89),
+                    ),
+                  ),
+                ),
 
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                children: [
-                  Text(
-                    "Suggest for you",
+                SizedBox(height: 16.h),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15.r),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 12.w),
+                            SvgPicture.asset(
+                              "assets/icons/ic_search.svg",
+                              color: Colors.black,
+                            ),
+                            SizedBox(width: 12.w),
+                            Expanded(
+                              child: TextField(
+                                onChanged: (value) {
+                                  context.read<SearchCubit>().search(value);
+                                },
+                                controller: searchController,
+                                cursorColor: const Color(0xFFE04151),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Search",
+                                  hintStyle: GoogleFonts.inter(
+                                    fontSize: 16.sp,
+                                    color: const Color(0xFFC4C4C4),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 6.h),
+                      const SuggestionDropdown(),
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Suggest for you",
+                        style: GoogleFonts.inter(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        "See all",
+                        style: GoogleFonts.inter(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFFE04151),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 10.h),
+
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MapDrawController(),
+                        ),
+                      );
+                    },
+                    child: ClassWidget(
+                      classTitle: "Track your running",
+                      classDescription: "Drawing line for your running",
+                      classImage: "assets/images/map_image.jpg",
+                      isRequiredFavorite: false,
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 20.h),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Text(
+                    "Track your steps today",
                     style: GoogleFonts.inter(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Spacer(),
-                  Text(
-                    "See all",
-                    style: GoogleFonts.inter(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFFE04151),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10.h),
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MapDrawController(),
-                    ),
-                  );
-                },
-                child: ClassWidget(
-                  classTitle: "Track your running",
-                  classDescription: "Drawing line for your running",
-                  classImage: "assets/images/map_image.jpg",
-                  isRequiredFavorite: false,
                 ),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Text(
-                "Track your steps today",
-                style: GoogleFonts.inter(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            SizedBox(height: 10.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: BlocBuilder<CoreCubit, CoreState>(
-                buildWhen: (prev, curr) => prev.todaySteps != curr.todaySteps,
-                builder: (context, state) {
-                  return StepCountWidget(
-                    stepCount: state.todaySteps ?? 0,
-                    startDate: state.timestamp ?? DateTime.now(),
-                  );
-                },
-              ),
-            ),
 
-            SizedBox(height: 24.h),
+                SizedBox(height: 10.h),
 
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      "Recommendation Class",
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.inter(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w800,
-                        color: const Color(0xFF2B2B2B),
-                      ),
-                    ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: BlocBuilder<CoreCubit, CoreState>(
+                    buildWhen: (prev, curr) =>
+                        prev.todaySteps != curr.todaySteps,
+                    builder: (context, state) {
+                      return StepCountWidget(
+                        stepCount: state.todaySteps ?? 0,
+                        startDate: state.timestamp ?? DateTime.now(),
+                      );
+                    },
                   ),
-                  Text(
-                    "See all",
-                    style: GoogleFonts.inter(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w700,
-                      color: const Color.fromARGB(255, 233, 89, 89),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10.h),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: ClassWidget(
-                classTitle: "Yoga Class",
-                classDescription: "With Rachel Wisdom",
-                classImage: "assets/images/yoga.jpg",
-              ),
-            ),
-            SizedBox(height: 15.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      "Categories",
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.inter(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w800,
-                        color: const Color(0xFF2B2B2B),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "See all",
-                    style: GoogleFonts.inter(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w700,
-                      color: const Color.fromARGB(255, 233, 89, 89),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: CarouselSlider.builder(
-                itemCount: categories.length,
-                itemBuilder: (context, index, realIndex) {
-                  return CategoriesWidget(
-                    categoryName: categories[index].categoryName,
-                    categoryImage: categories[index].categoryImage,
-                    categoryBgColor: categories[index].categoryBgColor,
-                  );
-                },
-                options: CarouselOptions(
-                  initialPage: 0,
-                  viewportFraction: 0.41,
-                  padEnds: false,
-                  enableInfiniteScroll: false,
                 ),
-              ),
+
+                SizedBox(height: 24.h),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Recommendation Class",
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.inter(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF2B2B2B),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "See all",
+                        style: GoogleFonts.inter(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(255, 233, 89, 89),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 10.h),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: ClassWidget(
+                    classTitle: "Yoga Class",
+                    classDescription: "With Rachel Wisdom",
+                    classImage: "assets/images/yoga.jpg",
+                  ),
+                ),
+
+                SizedBox(height: 15.h),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Categories",
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.inter(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF2B2B2B),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "See all",
+                        style: GoogleFonts.inter(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w700,
+                          color: const Color.fromARGB(255, 233, 89, 89),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 10.h),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: CarouselSlider.builder(
+                    itemCount: categories.length,
+                    itemBuilder: (context, index, realIndex) {
+                      return CategoriesWidget(
+                        categoryName: categories[index].categoryName,
+                        categoryImage: categories[index].categoryImage,
+                        categoryBgColor: categories[index].categoryBgColor,
+                      );
+                    },
+                    options: CarouselOptions(
+                      initialPage: 0,
+                      viewportFraction: 0.41,
+                      padEnds: false,
+                      enableInfiniteScroll: false,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
