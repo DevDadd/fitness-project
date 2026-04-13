@@ -3,6 +3,7 @@ import 'package:fitnessai/feature/authentication/controller/login_controller.dar
 import 'package:fitnessai/feature/authentication/presentation/pages/login_page.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
+import 'package:fitnessai/feature/workout/presentation/pages/detail_workout_page.dart';
 import 'package:fitnessai/home_page_core_provider.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:fitnessai/l10n/l10n.dart';
@@ -43,7 +44,10 @@ class _MyAppState extends State<MyApp> {
             locale: Locale(state.currentLanguage.toString()),
             supportedLocales: L10n.all,
             debugShowCheckedModeBanner: false,
-            home: LoginController(),
+            home: DetailWorkoutPage(
+              exerciseGif:
+                  'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXg5Z25ud3F5d2FzdHptMTRyNXdmMzQ2OHphMWx0ejE3aXBpdjd6dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8vVXp6y5RKx32/giphy.gif',
+            ),
           ),
         );
       },
