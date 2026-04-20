@@ -113,6 +113,7 @@ class _WorkoutlistPageState extends State<WorkoutlistPage> {
                             exercisLevel: workout.level ?? "",
                             exerciseImage: workout.url ?? "",
                             exerciseType: workout.type ?? "",
+                            workoutId: workout.key ?? "",
                           ),
                         );
                       },

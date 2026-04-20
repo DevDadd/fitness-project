@@ -9,4 +9,8 @@ class WorkoutUsecase {
   Future<List<Workout>> call() async {
     return await workoutRepository.getWorkouts();
   }
+
+  Future<Workout> getWorkoutById(String id) async {
+    return await workoutRepository.getWorkoutById(id);
+  }
 }

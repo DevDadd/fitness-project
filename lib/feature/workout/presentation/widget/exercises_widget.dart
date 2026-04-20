@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitnessai/feature/workout/presentation/controller/detail_workout_controller.dart';
+import 'package:fitnessai/feature/workout/presentation/pages/detail_workout_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,13 +12,14 @@ class ExercisesWidget extends StatelessWidget {
   final String exercisLevel;
   final String exerciseImage;
   final String exerciseType;
-
+  final String workoutId;
   const ExercisesWidget({
     super.key,
     required this.exerciseName,
     required this.exercisLevel,
     required this.exerciseImage,
     required this.exerciseType,
+    required this.workoutId,
   });
 
   @override
@@ -71,7 +74,18 @@ class ExercisesWidget extends StatelessWidget {
           ),
         ),
         Spacer(),
-        IconButton(onPressed: () {}, icon: Icon(FontAwesomeIcons.arrowRight)),
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              CupertinoSheetRoute(
+                builder: (context) =>
+                    DetailWorkoutController(workoutId: workoutId),
+              ),
+            );
+          },
+          icon: Icon(FontAwesomeIcons.arrowRight),
+        ),
       ],
     );
   }

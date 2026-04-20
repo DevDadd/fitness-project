@@ -10,9 +10,18 @@ class WorkoutState extends Equatable {
   WorkoutState({
     this.workoutsList = const [],
     this.difficultyLevels = const [],
+    this.detailWorkout,
+    this.isLoadingDetail = false,
   });
-  List<Workout> workoutsList;
-  List<DifficultyModel> difficultyLevels;
+  final List<Workout> workoutsList;
+  final List<DifficultyModel> difficultyLevels;
+  final Workout? detailWorkout;
+  final bool isLoadingDetail;
   @override
-  List<Object> get props => [workoutsList, difficultyLevels];
+  List<Object?> get props => [
+    workoutsList,
+    difficultyLevels,
+    detailWorkout,
+    isLoadingDetail,
+  ];
 }

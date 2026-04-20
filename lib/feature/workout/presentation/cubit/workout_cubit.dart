@@ -13,6 +13,16 @@ class WorkoutCubit extends Cubit<WorkoutState> {
     emit(state.copyWith(workoutsList: workouts));
   }
 
+  Future<void> getWorkoutById(String id) async {
+    emit(state.copyWith(detailWorkout: null, isLoadingDetail: true));
+    try {
+      final workout = await workoutUsecase.getWorkoutById(id);
+      emit(state.copyWith(detailWorkout: workout, isLoadingDetail: false));
+    } catch (_) {
+      emit(state.copyWith(isLoadingDetail: false));
+    }
+  }
+
   Future<void> getDifficultyLevels() async {
     emit(
       state.copyWith(

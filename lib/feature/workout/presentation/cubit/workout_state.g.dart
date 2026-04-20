@@ -11,6 +11,10 @@ abstract class _$WorkoutStateCWProxy {
 
   WorkoutState difficultyLevels(List<DifficultyModel> difficultyLevels);
 
+  WorkoutState detailWorkout(Workout? detailWorkout);
+
+  WorkoutState isLoadingDetail(bool isLoadingDetail);
+
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `WorkoutState(...).copyWith.fieldName(value)`.
   ///
@@ -21,6 +25,8 @@ abstract class _$WorkoutStateCWProxy {
   WorkoutState call({
     List<Workout> workoutsList,
     List<DifficultyModel> difficultyLevels,
+    Workout? detailWorkout,
+    bool isLoadingDetail,
   });
 }
 
@@ -40,6 +46,14 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
       call(difficultyLevels: difficultyLevels);
 
   @override
+  WorkoutState detailWorkout(Workout? detailWorkout) =>
+      call(detailWorkout: detailWorkout);
+
+  @override
+  WorkoutState isLoadingDetail(bool isLoadingDetail) =>
+      call(isLoadingDetail: isLoadingDetail);
+
+  @override
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `WorkoutState(...).copyWith.fieldName(value)`.
   ///
@@ -50,6 +64,8 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
   WorkoutState call({
     Object? workoutsList = const $CopyWithPlaceholder(),
     Object? difficultyLevels = const $CopyWithPlaceholder(),
+    Object? detailWorkout = const $CopyWithPlaceholder(),
+    Object? isLoadingDetail = const $CopyWithPlaceholder(),
   }) {
     return WorkoutState(
       workoutsList:
@@ -63,6 +79,16 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
           ? _value.difficultyLevels
           // ignore: cast_nullable_to_non_nullable
           : difficultyLevels as List<DifficultyModel>,
+      detailWorkout: detailWorkout == const $CopyWithPlaceholder()
+          ? _value.detailWorkout
+          // ignore: cast_nullable_to_non_nullable
+          : detailWorkout as Workout?,
+      isLoadingDetail:
+          isLoadingDetail == const $CopyWithPlaceholder() ||
+              isLoadingDetail == null
+          ? _value.isLoadingDetail
+          // ignore: cast_nullable_to_non_nullable
+          : isLoadingDetail as bool,
     );
   }
 }
