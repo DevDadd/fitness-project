@@ -43,9 +43,7 @@ void setup() {
   getIt.registerSingleton<CoreCubit>(CoreCubit());
   getIt.registerSingleton<ActivityCubit>(ActivityCubit());
 
-  getIt.registerFactory<WorkoutCubit>(
-    () => WorkoutCubit(getIt<WorkoutUsecase>()),
-  );
+  getIt.registerSingleton<WorkoutCubit>(WorkoutCubit(getIt<WorkoutUsecase>()));
 
   getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt<SearchUsecase>()));
 

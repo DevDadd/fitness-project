@@ -3,6 +3,8 @@ import 'package:fitnessai/feature/authentication/controller/login_controller.dar
 import 'package:fitnessai/feature/authentication/presentation/pages/login_page.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
+import 'package:fitnessai/feature/workout/presentation/controller/detail_workout_controller.dart';
+import 'package:fitnessai/feature/workout/presentation/pages/detail_workout_page.dart';
 import 'package:fitnessai/home_page_core_provider.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:fitnessai/l10n/l10n.dart';
