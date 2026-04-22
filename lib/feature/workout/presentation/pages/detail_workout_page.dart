@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_cubit.dart';
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_state.dart';
 import 'package:fitnessai/feature/workout/presentation/widget/difficulty_widget.dart';
+import 'package:fitnessai/feature/workout/presentation/widget/step_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,6 +46,7 @@ class _DetailWorkoutPageState extends State<DetailWorkoutPage> {
         builder: (context, state) {
           final workout = state.detailWorkout;
           final imageUrl = workout?.url ?? '';
+          final instructions = workout?.instructions ?? const [];
           return Stack(
             children: [
               SizedBox(
@@ -114,6 +116,43 @@ class _DetailWorkoutPageState extends State<DetailWorkoutPage> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 15.h),
+                        if (instructions.isNotEmpty)
+                          Expanded(
+                            child: ListView.separated(
+                              controller: scrollController,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: instructions.length - 1,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 8.h),
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 22.w,
+                                    vertical: 10.h,
+                                  ),
+                                  child: StepCardWidget(
+                                    stepNumber: index + 1,
+                                    stepTitle: instructions[index].title ?? '',
+                                    stepDescription:
+                                        instructions[index].content ?? '',
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        if (!state.isLoadingDetail && instructions.isEmpty)
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 22.w),
+                            child: Text(
+                              'No steps available.',
+                              style: GoogleFonts.inter(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xFFC4C4C4),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   );
