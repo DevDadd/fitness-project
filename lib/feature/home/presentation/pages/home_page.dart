@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.qr_code_scanner_outlined, size: 25.sp),
             ),
             title: Text(
-              "Hello, Username",
+              "Hello, ${state.loginResponse?.user.userName}",
               style: GoogleFonts.inter(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w700,
