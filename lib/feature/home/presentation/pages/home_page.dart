@@ -162,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-
+                SizedBox(height: 10.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Row(

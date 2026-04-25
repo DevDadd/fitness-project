@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_cubit.dart';
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_state.dart';
 import 'package:fitnessai/feature/workout/presentation/widget/difficulty_widget.dart';
+import 'package:fitnessai/feature/workout/presentation/widget/shimmer_widget.dart';
 import 'package:fitnessai/feature/workout/presentation/widget/step_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,23 +50,23 @@ class _DetailWorkoutPageState extends State<DetailWorkoutPage> {
           final instructions = workout?.instructions ?? const [];
           return Stack(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: double.infinity,
-                child: imageUrl.isEmpty
-                    ? const ColoredBox(color: Colors.black12)
-                    : CachedNetworkImage(
-                        imageUrl: imageUrl,
-                        placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.redAccent,
-                          ),
+              if (state.isLoadingDetail)
+                const ShimmerSinglePicture()
+              else
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: double.infinity,
+                  child: imageUrl.isEmpty
+                      ? const ColoredBox(color: Colors.black12)
+                      : CachedNetworkImage(
+                          imageUrl: imageUrl,
+                          placeholder: (context, url) =>
+                              const ShimmerSinglePicture(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          fit: BoxFit.cover,
                         ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                        fit: BoxFit.cover,
-                      ),
-              ),
+                ),
 
               DraggableScrollableSheet(
                 initialChildSize: 0.65,
@@ -86,43 +87,66 @@ class _DetailWorkoutPageState extends State<DetailWorkoutPage> {
                           padding: EdgeInsets.only(left: 19.w, top: 32.h),
                           child: Row(
                             children: [
-                              Text(
-                                workout?.title ?? '',
-                                style: GoogleFonts.inter(
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                              if (state.isLoadingDetail)
+                                const Expanded(child: ShimmerSingleLine())
+                              else
+                                Text(
+                                  workout?.title ?? '',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
                               SizedBox(width: 10.w),
-                              DifficultyWidget(
-                                difficultyLevel: workout?.level ?? '',
-                                color: Colors.red,
-                                icon: Icons.star,
-                                iconColor: Colors.red,
-                              ),
+                              if (state.isLoadingDetail)
+                                const ShimmerDifficultyChip()
+                              else
+                                DifficultyWidget(
+                                  difficultyLevel: workout?.level ?? '',
+                                  color: Colors.red,
+                                  icon: Icons.star,
+                                  iconColor: Colors.red,
+                                ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 10.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 19.w),
-                          child: Text(
-                            workout?.desc ?? '',
-                            style: GoogleFonts.inter(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFC4C4C4),
+                        if (state.isLoadingDetail)
+                          SizedBox(height: 10.h)
+                        else
+                          SizedBox(height: 10.h),
+                        if (!state.isLoadingDetail)
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 19.w),
+                            child: Text(
+                              workout?.desc ?? '',
+                              style: GoogleFonts.inter(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFC4C4C4),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 15.h),
-                        if (instructions.isNotEmpty)
+                        if (!state.isLoadingDetail && instructions.isNotEmpty)
+                          SizedBox(height: 15.h),
+                        if (state.isLoadingDetail)
+                          Expanded(
+                            child: ListView.separated(
+                              controller: scrollController,
+                              padding: EdgeInsets.symmetric(horizontal: 22.w),
+                              itemCount: 4,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 12.h),
+                              itemBuilder: (context, index) =>
+                                  const ShimmerThreeLines(),
+                            ),
+                          )
+                        else if (instructions.isNotEmpty)
                           Expanded(
                             child: ListView.separated(
                               controller: scrollController,
                               physics: const BouncingScrollPhysics(),
-                              itemCount: instructions.length - 1,
+                              itemCount: instructions.length,
                               separatorBuilder: (_, __) =>
                                   SizedBox(height: 8.h),
                               itemBuilder: (context, index) {
@@ -141,27 +165,11 @@ class _DetailWorkoutPageState extends State<DetailWorkoutPage> {
                               },
                             ),
                           ),
-                        if (!state.isLoadingDetail && instructions.isEmpty)
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 22.w),
-                            child: Text(
-                              'No steps available.',
-                              style: GoogleFonts.inter(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xFFC4C4C4),
-                              ),
-                            ),
-                          ),
                       ],
                     ),
                   );
                 },
               ),
-              if (state.isLoadingDetail)
-                const Center(
-                  child: CircularProgressIndicator(color: Colors.redAccent),
-                ),
             ],
           );
         },

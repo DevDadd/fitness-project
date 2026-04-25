@@ -71,9 +71,9 @@ class _HomePageCoreState extends State<HomePageCore> {
             ),
           ),
           SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.gear, size: 25.sp),
+            icon: Icon(FontAwesomeIcons.user, size: 25.sp),
             title: Text(
-              "Setting",
+              "Profile",
               style: GoogleFonts.manrope(
                 fontWeight: FontWeight.w700,
                 fontSize: 15.sp,
