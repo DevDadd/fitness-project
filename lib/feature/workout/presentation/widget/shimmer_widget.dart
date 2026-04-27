@@ -61,7 +61,7 @@ class ShimmerSinglePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: const Color.fromARGB(255, 169, 169, 169),
+      baseColor: const Color.fromARGB(255, 217, 217, 217),
       highlightColor: Colors.grey[100]!,
       child: Container(
         width: double.infinity,
