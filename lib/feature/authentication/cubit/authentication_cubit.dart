@@ -9,7 +9,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   final AuthenticationUsecase authenticationUsecase;
 
-  /// Đưa state về ban đầu (ví dụ sau khi quay lại màn đăng nhập).
   void reset() => emit(const AuthenticationState());
 
   Future<void> login(String email, String password) async {

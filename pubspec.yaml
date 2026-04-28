@@ -60,6 +60,7 @@ dependencies:
   flutter_map: ^8.2.2
   geolocator: ^14.0.2
   latlong2: ^0.9.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -110,6 +111,12 @@ flutter:
     - assets/images/map_image.jpg
     - assets/images/yoga.jpg
     - assets/icons/ic_login_failed.svg
+    - assets/icons/ic_upload.svg
+    - assets/icons/ic_camera.svg
+    - assets/icons/ic_language.svg
+    - assets/icons/ic_theme.svg
+    - assets/icons/ic_moon.svg
+    - assets/icons/ic_logout.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

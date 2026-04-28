@@ -1,5 +1,6 @@
 import 'package:fitnessai/feature/authentication/data/datasource/authentication_service.dart';
 import 'package:fitnessai/feature/authentication/data/model/login_request_model.dart';
+import 'package:fitnessai/feature/authentication/data/model/login_response_model.dart';
 import 'package:fitnessai/feature/authentication/data/model/register_request_model.dart';
 import 'package:fitnessai/feature/authentication/domain/entity/login_reponse.dart';
 import 'package:fitnessai/feature/authentication/domain/repository/authentication_repository.dart';

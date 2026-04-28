@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitnessai/feature/workout/presentation/controller/detail_workout_controller.dart';
-import 'package:fitnessai/feature/workout/presentation/pages/detail_workout_page.dart';
+import 'package:fitnessai/feature/workout/presentation/widget/shimmer_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,9 +40,7 @@ class ExercisesWidget extends StatelessWidget {
               fit: BoxFit.cover,
               memCacheHeight: 200,
               memCacheWidth: 200,
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(color: Colors.redAccent),
-              ),
+              placeholder: (context, url) => const ShimmerExerciseImage(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
