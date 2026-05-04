@@ -30,17 +30,17 @@ class _HomePageState extends State<HomePage> {
 
   final List<CategoriesWidget> categories = [
     CategoriesWidget(
-      categoryName: "Warm up",
+      categoryName: "Strength",
       categoryImage: "",
       categoryBgColor: "DDF2FF",
     ),
     CategoriesWidget(
-      categoryName: "Cardio",
+      categoryName: "Endurance",
       categoryImage: "",
       categoryBgColor: "F1F3FA",
     ),
     CategoriesWidget(
-      categoryName: "Strength",
+      categoryName: "Flexibility",
       categoryImage: "",
       categoryBgColor: "FFE6D6",
     ),
