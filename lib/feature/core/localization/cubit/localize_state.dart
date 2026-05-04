@@ -5,8 +5,9 @@ part 'localize_state.g.dart';
 
 @CopyWith()
 class LocalizeState extends Equatable {
-  LocalizeState({this.currentLanguage = "vi"});
+  LocalizeState({this.currentLanguage = "vi", this.isDarkMode = false});
   String? currentLanguage;
+  bool? isDarkMode;
   @override
-  List<Object?> get props => [currentLanguage];
+  List<Object?> get props => [currentLanguage, isDarkMode];
 }

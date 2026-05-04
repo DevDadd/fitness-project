@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart';
+import 'package:fitnessai/feature/courses/presentation/cubit/courses_state.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
@@ -47,6 +49,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // context.read<CoreCubit>().initPlatformState();
+    context.read<CoursesCubit>().getCourses();
   }
 
   @override
@@ -269,13 +272,27 @@ class _HomePageState extends State<HomePage> {
 
                 SizedBox(height: 10.h),
 
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: ClassWidget(
-                    classTitle: "Yoga Class",
-                    classDescription: "With Rachel Wisdom",
-                    classImage: "assets/images/yoga.jpg",
-                  ),
+                BlocBuilder<CoursesCubit, CoursesState>(
+                  builder: (context, state) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: SizedBox(
+                        height: 80.h,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.courses.length,
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 10.w),
+                          itemBuilder: (context, index) => ClassWidget(
+                            isCourse: true,
+                            classTitle: state.courses[index].title,
+                            classDescription: state.courses[index].description,
+                            classImage: state.courses[index].imageUrl,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
 
                 SizedBox(height: 15.h),

@@ -146,7 +146,7 @@ class _DetailWorkoutPageState extends State<DetailWorkoutPage> {
                             child: ListView.separated(
                               controller: scrollController,
                               physics: const BouncingScrollPhysics(),
-                              itemCount: instructions.length,
+                              itemCount: instructions.length - 1,
                               separatorBuilder: (_, __) =>
                                   SizedBox(height: 8.h),
                               itemBuilder: (context, index) {

@@ -1,4 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:fitnessai/feature/courses/data/datasource/courses_service.dart';
+import 'package:fitnessai/feature/courses/data/repository/datasource_repository_impl.dart';
+import 'package:fitnessai/feature/courses/domain/repository/courses_repository.dart';
+import 'package:fitnessai/feature/courses/domain/usecase/courses_usecase.dart';
+import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/data/datasource/authentication_service.dart';
 import 'package:fitnessai/feature/authentication/data/repository/authentication_repository_impl.dart';
@@ -70,4 +75,12 @@ void setup() {
   getIt.registerFactory<AuthenticationService>(
     () => AuthenticationService(getIt<Dio>()),
   );
+  getIt.registerFactory<CoursesUsecase>(
+    () => CoursesUsecase(getIt<CoursesRepository>()),
+  );
+  getIt.registerFactory<CoursesRepository>(
+    () => CoursesRepositoryImpl(getIt<CoursesService>()),
+  );
+  getIt.registerFactory<CoursesService>(() => CoursesService(getIt<Dio>()));
+  getIt.registerSingleton<CoursesCubit>(CoursesCubit(getIt<CoursesUsecase>()));
 }

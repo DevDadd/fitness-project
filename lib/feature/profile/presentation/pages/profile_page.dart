@@ -6,6 +6,7 @@ import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
 import 'package:fitnessai/feature/profile/presentation/widgets/change_setting_card_widget.dart';
 import 'package:fitnessai/feature/profile/presentation/widgets/feature_card_widget.dart';
 import 'package:fitnessai/feature/profile/presentation/widgets/info_card_widget.dart';
+import 'package:fitnessai/feature/profile/presentation/widgets/notification_bottom_sheet.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +21,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xFFF4F4F4),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFF4F4F4),
+      // backgroundColor: Colors.white,
       body: BlocBuilder<AuthenticationCubit, AuthenticationState>(
         buildWhen: (previous, current) =>
             previous.loginResponse != current.loginResponse,
@@ -231,76 +232,101 @@ class ProfilePage extends StatelessWidget {
                   onArrowTap2: (arrowContext) {
                     showPopover(
                       context: arrowContext,
-                      bodyBuilder: (popoverContext) => Material(
-                        color: Colors.white,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(popoverContext);
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 16.w,
-                                  vertical: 12.h,
-                                ),
-                                child: Row(
+                      bodyBuilder: (_) =>
+                          BlocBuilder<LocalizeCubit, LocalizeState>(
+                            builder: (context, localizeState) {
+                              final isDarkMode =
+                                  localizeState.isDarkMode ?? false;
+                              return Material(
+                                color: Colors.white,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/icons/ic_theme.svg',
-                                            width: 20.w,
-                                            height: 20.h,
-                                          ),
-                                          SizedBox(width: 10.w),
-                                          Text(
-                                            'Light',
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                        ],
+                                    InkWell(
+                                      onTap: () {
+                                        if (isDarkMode) {
+                                          context
+                                              .read<LocalizeCubit>()
+                                              .setIsDarkMode();
+                                        }
+                                        Navigator.pop(context);
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 16.w,
+                                          vertical: 12.h,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/icons/ic_theme.svg',
+                                                    width: 20.w,
+                                                    height: 20.h,
+                                                  ),
+                                                  SizedBox(width: 10.w),
+                                                  Text(
+                                                    'Light',
+                                                    style: TextStyle(
+                                                      fontSize: 14.sp,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            if (!isDarkMode)
+                                              Icon(Icons.check, size: 16.sp),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        if (!isDarkMode) {
+                                          context
+                                              .read<LocalizeCubit>()
+                                              .setIsDarkMode();
+                                        }
+                                        Navigator.pop(context);
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 16.w,
+                                          vertical: 12.h,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/icons/ic_moon.svg',
+                                                    width: 20.w,
+                                                    height: 20.h,
+                                                  ),
+                                                  SizedBox(width: 10.w),
+                                                  Text(
+                                                    'Dark',
+                                                    style: TextStyle(
+                                                      fontSize: 14.sp,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            if (isDarkMode)
+                                              Icon(Icons.check, size: 16.sp),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(popoverContext);
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 16.w,
-                                  vertical: 12.h,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/icons/ic_moon.svg',
-                                            width: 20.w,
-                                            height: 20.h,
-                                          ),
-                                          SizedBox(width: 10.w),
-                                          Text(
-                                            'Dark',
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                              );
+                            },
+                          ),
                       direction: PopoverDirection.bottom,
                       width: 250.w,
                       height: 94.h,
@@ -317,10 +343,22 @@ class ProfilePage extends StatelessWidget {
                   ),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginController(),
+                      showDialog<void>(
+                        context: context,
+                        builder: (dialogContext) => NotificationBottomSheet(
+                          onConfirm: () {
+                            final navigator = Navigator.of(
+                              dialogContext,
+                              rootNavigator: true,
+                            );
+                            navigator.pop();
+                            navigator.pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (_) => LoginController(),
+                              ),
+                              (route) => false,
+                            );
+                          },
                         ),
                       );
                     },

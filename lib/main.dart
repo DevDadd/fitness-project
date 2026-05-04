@@ -42,6 +42,11 @@ class _MyAppState extends State<MyApp> {
           minTextAdapt: true,
           splitScreenMode: true,
           child: MaterialApp(
+            theme: ThemeData(
+              brightness: (state.isDarkMode ?? false)
+                  ? Brightness.dark
+                  : Brightness.light,
+            ),
             color: Colors.white,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             locale: Locale(state.currentLanguage.toString()),
