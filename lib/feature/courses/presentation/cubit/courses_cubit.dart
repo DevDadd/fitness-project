@@ -22,4 +22,18 @@ class CoursesCubit extends Cubit<CoursesState> {
       );
     }
   }
+
+  Future<void> getCoursesDetail(String id) async {
+    try {
+      final response = await coursesUsecase.getCoursesDetail(id);
+      emit(state.copyWith(coursesDetail: response));
+    } catch (error, stackTrace) {
+      developer.log(
+        'Failed to fetch courses detail',
+        name: 'courses.cubit',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
 }

@@ -9,6 +9,8 @@ part of 'courses_state.dart';
 abstract class _$CoursesStateCWProxy {
   CoursesState courses(List<CoursesEntity> courses);
 
+  CoursesState coursesDetail(CoursesDetailEntity? coursesDetail);
+
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `CoursesState(...).copyWith.fieldName(value)`.
   ///
@@ -16,7 +18,10 @@ abstract class _$CoursesStateCWProxy {
   /// ```dart
   /// CoursesState(...).copyWith(id: 12, name: "My name")
   /// ```
-  CoursesState call({List<CoursesEntity> courses});
+  CoursesState call({
+    List<CoursesEntity> courses,
+    CoursesDetailEntity? coursesDetail,
+  });
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -30,6 +35,10 @@ class _$CoursesStateCWProxyImpl implements _$CoursesStateCWProxy {
   CoursesState courses(List<CoursesEntity> courses) => call(courses: courses);
 
   @override
+  CoursesState coursesDetail(CoursesDetailEntity? coursesDetail) =>
+      call(coursesDetail: coursesDetail);
+
+  @override
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `CoursesState(...).copyWith.fieldName(value)`.
   ///
@@ -37,12 +46,19 @@ class _$CoursesStateCWProxyImpl implements _$CoursesStateCWProxy {
   /// ```dart
   /// CoursesState(...).copyWith(id: 12, name: "My name")
   /// ```
-  CoursesState call({Object? courses = const $CopyWithPlaceholder()}) {
+  CoursesState call({
+    Object? courses = const $CopyWithPlaceholder(),
+    Object? coursesDetail = const $CopyWithPlaceholder(),
+  }) {
     return CoursesState(
       courses: courses == const $CopyWithPlaceholder() || courses == null
           ? _value.courses
           // ignore: cast_nullable_to_non_nullable
           : courses as List<CoursesEntity>,
+      coursesDetail: coursesDetail == const $CopyWithPlaceholder()
+          ? _value.coursesDetail
+          // ignore: cast_nullable_to_non_nullable
+          : coursesDetail as CoursesDetailEntity?,
     );
   }
 }

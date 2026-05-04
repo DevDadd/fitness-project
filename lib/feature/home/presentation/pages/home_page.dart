@@ -3,6 +3,7 @@ import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart'
 import 'package:fitnessai/feature/courses/presentation/cubit/courses_state.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
+import 'package:fitnessai/feature/home/presentation/controller/course_detail_controller.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_state.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/categories_widget.dart';
@@ -283,11 +284,24 @@ class _HomePageState extends State<HomePage> {
                           itemCount: state.courses.length,
                           separatorBuilder: (context, index) =>
                               SizedBox(width: 10.w),
-                          itemBuilder: (context, index) => ClassWidget(
-                            isCourse: true,
-                            classTitle: state.courses[index].title,
-                            classDescription: state.courses[index].description,
-                            classImage: state.courses[index].imageUrl,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CourseDetailController(
+                                    courseKey: state.courses[index].id,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: ClassWidget(
+                              isCourse: true,
+                              classTitle: state.courses[index].title,
+                              classDescription:
+                                  state.courses[index].description,
+                              classImage: state.courses[index].imageUrl,
+                            ),
                           ),
                         ),
                       ),

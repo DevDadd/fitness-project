@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fitnessai/feature/courses/data/model/courses_detail_model.dart';
 import 'package:fitnessai/feature/courses/data/model/courses_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -11,4 +12,7 @@ abstract class CoursesService {
 
   @GET('/api/courses')
   Future<List<CoursesModel>> getCourses();
+
+  @GET('/api/courses/{id}')
+  Future<CoursesDetailModel> getCourse(@Path('id') String id);
 }

@@ -1,3 +1,5 @@
+import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart';
+import 'package:fitnessai/feature/courses/presentation/cubit/courses_state.dart';
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_cubit.dart';
 import 'package:fitnessai/feature/workout/presentation/cubit/workout_state.dart';
 import 'package:fitnessai/feature/workout/presentation/widget/difficulty_widget.dart';
@@ -20,11 +22,13 @@ class _CoursesDetailPageState extends State<CoursesDetailPage> {
   void initState() {
     super.initState();
     context.read<WorkoutCubit>().getDifficultyLevels();
+    context.read<CoursesCubit>().getCoursesDetail(widget.courseKey);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -43,7 +47,7 @@ class _CoursesDetailPageState extends State<CoursesDetailPage> {
               SizedBox(height: 20.h),
 
               Text(
-                "Browse the course .",
+                "Browse the course and get the best workout for you.",
                 style: GoogleFonts.inter(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
@@ -93,26 +97,26 @@ class _CoursesDetailPageState extends State<CoursesDetailPage> {
               SizedBox(height: 11.h),
 
               Expanded(
-                child: BlocBuilder<WorkoutCubit, WorkoutState>(
-                  buildWhen: (p, c) => p.workoutsList != c.workoutsList,
+                child: BlocBuilder<CoursesCubit, CoursesState>(
+                  buildWhen: (p, c) => p.coursesDetail != c.coursesDetail,
                   builder: (context, state) {
-                    if (state.workoutsList.isEmpty) {
+                    if (state.coursesDetail?.exercises?.isEmpty ?? true) {
                       return const LoadingWidget();
                     }
 
                     return ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: state.workoutsList.length,
+                      itemCount: state.coursesDetail?.exercises?.length ?? 0,
                       itemBuilder: (context, index) {
-                        final workout = state.workoutsList[index];
+                        final workout = state.coursesDetail?.exercises?[index];
                         return Padding(
                           padding: EdgeInsets.only(bottom: 12.h),
                           child: ExercisesWidget(
-                            exerciseName: workout.title ?? "",
-                            exercisLevel: workout.level ?? "",
-                            exerciseImage: workout.url ?? "",
-                            exerciseType: workout.type ?? "",
-                            workoutId: workout.key ?? "",
+                            exerciseName: workout?.title ?? "",
+                            exercisLevel: workout?.level ?? "",
+                            exerciseImage: workout?.url ?? "",
+                            exerciseType: workout?.type ?? "",
+                            workoutId: workout?.key ?? "",
                           ),
                         );
                       },
