@@ -12,8 +12,10 @@ class WorkoutState extends Equatable {
     this.difficultyLevels = const [],
     this.detailWorkout,
     this.isLoadingDetail = false,
+    this.workoutsListByType = const [],
   });
   final List<Workout> workoutsList;
+  final List<Workout> workoutsListByType;
   final List<DifficultyModel> difficultyLevels;
   final Workout? detailWorkout;
   final bool isLoadingDetail;
@@ -23,5 +25,6 @@ class WorkoutState extends Equatable {
     difficultyLevels,
     detailWorkout,
     isLoadingDetail,
+    workoutsListByType,
   ];
 }

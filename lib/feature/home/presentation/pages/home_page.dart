@@ -3,9 +3,11 @@ import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart'
 import 'package:fitnessai/feature/courses/presentation/cubit/courses_state.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
+import 'package:fitnessai/feature/home/presentation/controller/category_detail_page.dart';
 import 'package:fitnessai/feature/home/presentation/controller/course_detail_controller.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_state.dart';
+import 'package:fitnessai/feature/home/presentation/pages/category_detail_page.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/categories_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/class_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/step_count_widget.dart';
@@ -345,10 +347,24 @@ class _HomePageState extends State<HomePage> {
                   child: CarouselSlider.builder(
                     itemCount: categories.length,
                     itemBuilder: (context, index, realIndex) {
-                      return CategoriesWidget(
-                        categoryName: categories[index].categoryName,
-                        categoryImage: categories[index].categoryImage,
-                        categoryBgColor: categories[index].categoryBgColor,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CategoryDetailPageController(
+                                    categoryType:
+                                        categories[index].categoryName,
+                                  ),
+                            ),
+                          );
+                        },
+                        child: CategoriesWidget(
+                          categoryName: categories[index].categoryName,
+                          categoryImage: categories[index].categoryImage,
+                          categoryBgColor: categories[index].categoryBgColor,
+                        ),
                       );
                     },
                     options: CarouselOptions(

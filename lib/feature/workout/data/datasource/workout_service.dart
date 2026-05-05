@@ -13,4 +13,7 @@ abstract class WorkoutService {
 
   @GET("/api/exercises/{id}")
   Future<WorkoutModel> getWorkoutById(@Path("id") String id);
+
+  @GET("/api/exercises/type")
+  Future<List<WorkoutModel>> getWorkoutsByType(@Query("type") String type);
 }
