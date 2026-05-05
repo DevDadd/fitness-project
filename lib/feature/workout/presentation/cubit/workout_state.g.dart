@@ -15,6 +15,8 @@ abstract class _$WorkoutStateCWProxy {
 
   WorkoutState isLoadingDetail(bool isLoadingDetail);
 
+  WorkoutState workoutsListByType(List<Workout> workoutsListByType);
+
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `WorkoutState(...).copyWith.fieldName(value)`.
   ///
@@ -27,6 +29,7 @@ abstract class _$WorkoutStateCWProxy {
     List<DifficultyModel> difficultyLevels,
     Workout? detailWorkout,
     bool isLoadingDetail,
+    List<Workout> workoutsListByType,
   });
 }
 
@@ -54,6 +57,10 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
       call(isLoadingDetail: isLoadingDetail);
 
   @override
+  WorkoutState workoutsListByType(List<Workout> workoutsListByType) =>
+      call(workoutsListByType: workoutsListByType);
+
+  @override
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `WorkoutState(...).copyWith.fieldName(value)`.
   ///
@@ -66,6 +73,7 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
     Object? difficultyLevels = const $CopyWithPlaceholder(),
     Object? detailWorkout = const $CopyWithPlaceholder(),
     Object? isLoadingDetail = const $CopyWithPlaceholder(),
+    Object? workoutsListByType = const $CopyWithPlaceholder(),
   }) {
     return WorkoutState(
       workoutsList:
@@ -89,6 +97,12 @@ class _$WorkoutStateCWProxyImpl implements _$WorkoutStateCWProxy {
           ? _value.isLoadingDetail
           // ignore: cast_nullable_to_non_nullable
           : isLoadingDetail as bool,
+      workoutsListByType:
+          workoutsListByType == const $CopyWithPlaceholder() ||
+              workoutsListByType == null
+          ? _value.workoutsListByType
+          // ignore: cast_nullable_to_non_nullable
+          : workoutsListByType as List<Workout>,
     );
   }
 }

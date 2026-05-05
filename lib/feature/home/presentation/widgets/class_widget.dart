@@ -7,19 +7,21 @@ class ClassWidget extends StatelessWidget {
   final String classTitle;
   final String classDescription;
   final String classImage;
+  final bool isCourse;
   final bool isRequiredFavorite;
   ClassWidget({
     super.key,
     required this.classTitle,
     required this.classDescription,
     required this.classImage,
+    this.isCourse = false,
     this.isRequiredFavorite = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: isCourse ? 374.w : 374.w,
       height: 80.h,
       decoration: BoxDecoration(
         color: Color(0xFFF1F3FA),
@@ -38,36 +40,41 @@ class ClassWidget extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
-                child: Image.asset(classImage, fit: BoxFit.cover),
+                child: isCourse
+                    ? Image.network(classImage, fit: BoxFit.cover)
+                    : Image.asset(classImage, fit: BoxFit.cover),
               ),
             ),
           ),
           SizedBox(width: 15.w),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                classTitle,
-                style: GoogleFonts.inter(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF003A4D),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  classTitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF003A4D),
+                  ),
                 ),
-              ),
-              Text(
-                classDescription,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: GoogleFonts.inter(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF004D66),
+                Text(
+                  classDescription,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: GoogleFonts.inter(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF004D66),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Spacer(),
           if (isRequiredFavorite)
             Padding(
               padding: const EdgeInsets.only(right: 18),

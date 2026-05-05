@@ -9,6 +9,8 @@ part of 'localize_state.dart';
 abstract class _$LocalizeStateCWProxy {
   LocalizeState currentLanguage(String? currentLanguage);
 
+  LocalizeState isDarkMode(bool? isDarkMode);
+
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `LocalizeState(...).copyWith.fieldName(value)`.
   ///
@@ -16,7 +18,7 @@ abstract class _$LocalizeStateCWProxy {
   /// ```dart
   /// LocalizeState(...).copyWith(id: 12, name: "My name")
   /// ```
-  LocalizeState call({String? currentLanguage});
+  LocalizeState call({String? currentLanguage, bool? isDarkMode});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -31,6 +33,9 @@ class _$LocalizeStateCWProxyImpl implements _$LocalizeStateCWProxy {
       call(currentLanguage: currentLanguage);
 
   @override
+  LocalizeState isDarkMode(bool? isDarkMode) => call(isDarkMode: isDarkMode);
+
+  @override
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `LocalizeState(...).copyWith.fieldName(value)`.
   ///
@@ -38,12 +43,19 @@ class _$LocalizeStateCWProxyImpl implements _$LocalizeStateCWProxy {
   /// ```dart
   /// LocalizeState(...).copyWith(id: 12, name: "My name")
   /// ```
-  LocalizeState call({Object? currentLanguage = const $CopyWithPlaceholder()}) {
+  LocalizeState call({
+    Object? currentLanguage = const $CopyWithPlaceholder(),
+    Object? isDarkMode = const $CopyWithPlaceholder(),
+  }) {
     return LocalizeState(
       currentLanguage: currentLanguage == const $CopyWithPlaceholder()
           ? _value.currentLanguage
           // ignore: cast_nullable_to_non_nullable
           : currentLanguage as String?,
+      isDarkMode: isDarkMode == const $CopyWithPlaceholder()
+          ? _value.isDarkMode
+          // ignore: cast_nullable_to_non_nullable
+          : isDarkMode as bool?,
     );
   }
 }

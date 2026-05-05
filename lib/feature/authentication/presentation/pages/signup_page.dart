@@ -179,6 +179,7 @@ class _SignupPageState extends State<SignupPage> {
                     ],
                   ),
                 ),
+                SizedBox(height: 20.h),
                 Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
@@ -199,32 +200,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15.h),
-                Row(
-                  children: const [
-                    Expanded(child: Divider(thickness: 1)),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        'Đăng nhập khác',
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Expanded(child: Divider(thickness: 1)),
-                  ],
-                ),
-                SizedBox(height: 20.h),
-                OtherLoginButton(
-                  inputIcon: FontAwesomeIcons.google,
-                  inputText: AppLocalizations.of(context)!.loginwithgoogle,
-                  iconColor: const Color.fromARGB(255, 224, 65, 81),
-                ),
-                SizedBox(height: 15),
-                OtherLoginButton(
-                  inputIcon: FontAwesomeIcons.facebook,
-                  inputText: AppLocalizations.of(context)!.loginwithfb,
-                  iconColor: Color(0xFF1877F2),
-                ),
+
                 const Spacer(),
                 BlocListener<AuthenticationCubit, AuthenticationState>(
                   listenWhen: (previous, current) =>

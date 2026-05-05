@@ -3,6 +3,7 @@ import 'package:fitnessai/feature/authentication/controller/login_controller.dar
 import 'package:fitnessai/feature/authentication/presentation/pages/login_page.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
+import 'package:fitnessai/feature/onboarding/presentation/onboarding_page.dart';
 import 'package:fitnessai/feature/profile/presentation/pages/profile_page.dart';
 import 'package:fitnessai/feature/workout/presentation/controller/detail_workout_controller.dart';
 import 'package:fitnessai/feature/workout/presentation/pages/detail_workout_page.dart';
@@ -42,12 +43,17 @@ class _MyAppState extends State<MyApp> {
           minTextAdapt: true,
           splitScreenMode: true,
           child: MaterialApp(
+            theme: ThemeData(
+              brightness: (state.isDarkMode ?? false)
+                  ? Brightness.dark
+                  : Brightness.light,
+            ),
             color: Colors.white,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             locale: Locale(state.currentLanguage.toString()),
             supportedLocales: L10n.all,
             debugShowCheckedModeBanner: false,
-            home: LoginController(),
+            home: OnboardingPage(),
           ),
         );
       },

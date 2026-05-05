@@ -1,3 +1,4 @@
+import 'package:fitnessai/feature/authentication/controller/login_controller.dart';
 import 'package:fitnessai/feature/authentication/presentation/pages/login_page.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:flutter/material.dart';
@@ -48,14 +49,17 @@ class OnboardingPage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 gradient: LinearGradient(
-                  colors: [Color.fromARGB(255, 254, 99, 72), Color.fromARGB(255, 241, 50, 16)],
+                  colors: [
+                    Color.fromARGB(255, 254, 99, 72),
+                    Color.fromARGB(255, 241, 50, 16),
+                  ],
                 ),
               ),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => LoginController()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

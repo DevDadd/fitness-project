@@ -117,6 +117,7 @@ flutter:
     - assets/icons/ic_theme.svg
     - assets/icons/ic_moon.svg
     - assets/icons/ic_logout.svg
+    - assets/icons/ic_warning.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

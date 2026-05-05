@@ -19,4 +19,10 @@ class WorkoutDatasourceImpl implements WorkoutRepository {
     final response = await workoutService.getWorkoutById(id);
     return response.toEntity();
   }
+
+  @override
+  Future<List<Workout>> getWorkoutsByType(String type) async {
+    final response = await workoutService.getWorkoutsByType(type);
+    return response.map((model) => model.toEntity()).toList();
+  }
 }

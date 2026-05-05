@@ -32,8 +32,10 @@ class User {
   String? email;
   @JsonKey(name: "gender")
   String? gender;
+  @JsonKey(name: "avatar")
+  String? avatar;
 
-  User({this.userId, this.userName, this.email, this.gender});
+  User({this.userId, this.userName, this.email, this.gender, this.avatar});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
@@ -54,6 +56,7 @@ extension LoginModelMapper on LoginModel {
         userName: userData.userName ?? '',
         email: userData.email ?? '',
         gender: userData.gender ?? '',
+        avatar: userData.avatar ?? '',
       ),
     );
   }
