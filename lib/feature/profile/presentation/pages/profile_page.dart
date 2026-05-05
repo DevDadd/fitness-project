@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitnessai/feature/authentication/controller/login_controller.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
@@ -53,18 +54,22 @@ class ProfilePage extends StatelessWidget {
                 Center(
                   child: Padding(
                     padding: EdgeInsets.only(top: 20.h),
-                    child: Container(
-                      height: 160.h,
-                      width: 160.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.transparent,
-                        border: Border.all(color: Colors.red, width: 3.w),
-                      ),
-                      child: Icon(
-                        Icons.person,
-                        size: 100.sp,
-                        color: Colors.black,
+
+                    child: Padding(
+                      padding: EdgeInsets.all(3.w),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(1000.r),
+                        child: CachedNetworkImage(
+                          imageUrl: state.loginResponse?.user.avatar ?? '',
+                          width: 160.w,
+                          height: 160.h,
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Icon(
+                            Icons.person,
+                            size: 100.sp,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ),
                   ),

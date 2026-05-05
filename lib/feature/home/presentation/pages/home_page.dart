@@ -89,7 +89,13 @@ class _HomePageState extends State<HomePage> {
             actions: [
               Padding(
                 padding: EdgeInsets.only(right: 12.w),
-                child: CircleAvatar(radius: 20.r, backgroundColor: Colors.red),
+                child: CircleAvatar(
+                  radius: 20.r,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: NetworkImage(
+                    state.loginResponse?.user.avatar ?? '',
+                  ),
+                ),
               ),
             ],
           ),

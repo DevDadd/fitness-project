@@ -19,11 +19,13 @@ class LoginUser {
   final String userName;
   final String email;
   final String gender;
+  final String avatar;
 
   LoginUser({
     required this.userId,
     required this.userName,
     required this.email,
     required this.gender,
+    required this.avatar,
   });
 }
