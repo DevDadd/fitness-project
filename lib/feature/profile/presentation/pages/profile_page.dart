@@ -8,6 +8,7 @@ import 'package:fitnessai/feature/profile/presentation/widgets/change_setting_ca
 import 'package:fitnessai/feature/profile/presentation/widgets/feature_card_widget.dart';
 import 'package:fitnessai/feature/profile/presentation/widgets/info_card_widget.dart';
 import 'package:fitnessai/feature/profile/presentation/widgets/notification_bottom_sheet.dart';
+import 'package:fitnessai/feature/upload/presentation/upload_video_page.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -143,6 +144,14 @@ class ProfilePage extends StatelessWidget {
                   iconPath: "assets/icons/ic_upload.svg",
                   title2: "Stream Video",
                   iconPath2: "assets/icons/ic_camera.svg",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UploadVideoPage(),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(height: 8.h),
                 ChangeSettingCardWidget(

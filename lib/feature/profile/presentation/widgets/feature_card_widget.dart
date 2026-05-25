@@ -10,11 +10,15 @@ class FeatureCardWidget extends StatelessWidget {
     required this.iconPath,
     required this.title2,
     required this.iconPath2,
+    this.onTap,
+    this.onTap2,
   });
   final String title;
   final String iconPath;
   final String title2;
   final String iconPath2;
+  final VoidCallback? onTap;
+  final VoidCallback? onTap2;
 
   @override
   Widget build(BuildContext context) {
@@ -37,49 +41,57 @@ class FeatureCardWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
           child: Column(
             children: [
-              Row(
-                children: [
-                  SvgPicture.asset(iconPath, height: 20.h, width: 20.w),
-                  SizedBox(width: 10.w),
-                  Text(
-                    title,
-                    style: GoogleFonts.inter(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
+              GestureDetector(
+                onTap: onTap,
+                behavior: HitTestBehavior.opaque,
+                child: Row(
+                  children: [
+                    SvgPicture.asset(iconPath, height: 20.h, width: 20.w),
+                    SizedBox(width: 10.w),
+                    Text(
+                      title,
+                      style: GoogleFonts.inter(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 14.sp,
                       color: Colors.black,
                     ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 14.sp,
-                    color: Colors.black,
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 10.h),
               Divider(color: Colors.grey.withOpacity(0.3), thickness: 1),
               SizedBox(height: 10.h),
-              Row(
-                children: [
-                  SvgPicture.asset(iconPath2, height: 20.h, width: 20.w),
-                  SizedBox(width: 10.w),
-                  Text(
-                    title2,
-                    style: GoogleFonts.inter(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
+              GestureDetector(
+                onTap: onTap2,
+                behavior: HitTestBehavior.opaque,
+                child: Row(
+                  children: [
+                    SvgPicture.asset(iconPath2, height: 20.h, width: 20.w),
+                    SizedBox(width: 10.w),
+                    Text(
+                      title2,
+                      style: GoogleFonts.inter(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 14.sp,
                       color: Colors.black,
                     ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 14.sp,
-                    color: Colors.black,
-                  ),
-                  Divider(color: Colors.grey.withOpacity(0.5), thickness: 1),
-                ],
+                    Divider(color: Colors.grey.withOpacity(0.5), thickness: 1),
+                  ],
+                ),
               ),
             ],
           ),
