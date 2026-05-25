@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitnessai/feature/AI/controller/upload_video_controller.dart';
 import 'package:fitnessai/feature/authentication/controller/login_controller.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';

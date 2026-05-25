@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fitnessai/feature/AI/presentation/cubit/detect_cubit.dart';
 import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart';
 import 'package:fitnessai/feature/courses/presentation/cubit/courses_state.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
@@ -75,7 +76,9 @@ class _HomePageState extends State<HomePage> {
             elevation: 0,
             centerTitle: true,
             leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<DetectCubit>().pickVideoFromLibrary();
+              },
               icon: Icon(Icons.qr_code_scanner_outlined, size: 25.sp),
             ),
             title: Text(

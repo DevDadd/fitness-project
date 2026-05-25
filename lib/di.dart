@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fitnessai/feature/AI/presentation/cubit/detect_cubit.dart';
 import 'package:fitnessai/feature/courses/data/datasource/courses_service.dart';
 import 'package:fitnessai/feature/courses/data/repository/datasource_repository_impl.dart';
 import 'package:fitnessai/feature/courses/domain/repository/courses_repository.dart';
@@ -83,4 +84,5 @@ void setup() {
   );
   getIt.registerFactory<CoursesService>(() => CoursesService(getIt<Dio>()));
   getIt.registerSingleton<CoursesCubit>(CoursesCubit(getIt<CoursesUsecase>()));
+  getIt.registerSingleton<DetectCubit>(DetectCubit());
 }
