@@ -63,6 +63,8 @@ dependencies:
   shimmer: ^3.0.0
   image_picker: ^1.2.2
   dotted_border: ^3.1.0
+  video_player: ^2.11.1
+  aws_s3_api: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -147,3 +149,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+dependency_overrides:
+  intl: ^0.20.2

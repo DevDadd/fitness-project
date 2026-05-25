@@ -9,6 +9,8 @@ part of 'detect_state.dart';
 abstract class _$DetectStateCWProxy {
   DetectState video(XFile? video);
 
+  DetectState uploadResult(DetectModel? uploadResult);
+
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `DetectState(...).copyWith.fieldName(value)`.
   ///
@@ -16,7 +18,7 @@ abstract class _$DetectStateCWProxy {
   /// ```dart
   /// DetectState(...).copyWith(id: 12, name: "My name")
   /// ```
-  DetectState call({XFile? video});
+  DetectState call({XFile? video, DetectModel? uploadResult});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -30,6 +32,10 @@ class _$DetectStateCWProxyImpl implements _$DetectStateCWProxy {
   DetectState video(XFile? video) => call(video: video);
 
   @override
+  DetectState uploadResult(DetectModel? uploadResult) =>
+      call(uploadResult: uploadResult);
+
+  @override
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `DetectState(...).copyWith.fieldName(value)`.
   ///
@@ -37,12 +43,19 @@ class _$DetectStateCWProxyImpl implements _$DetectStateCWProxy {
   /// ```dart
   /// DetectState(...).copyWith(id: 12, name: "My name")
   /// ```
-  DetectState call({Object? video = const $CopyWithPlaceholder()}) {
+  DetectState call({
+    Object? video = const $CopyWithPlaceholder(),
+    Object? uploadResult = const $CopyWithPlaceholder(),
+  }) {
     return DetectState(
       video: video == const $CopyWithPlaceholder()
           ? _value.video
           // ignore: cast_nullable_to_non_nullable
           : video as XFile?,
+      uploadResult: uploadResult == const $CopyWithPlaceholder()
+          ? _value.uploadResult
+          // ignore: cast_nullable_to_non_nullable
+          : uploadResult as DetectModel?,
     );
   }
 }

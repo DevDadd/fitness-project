@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:fitnessai/feature/AI/data/datasource/detect_service.dart';
+import 'package:fitnessai/feature/AI/data/repository/detect_repository_impl.dart';
+import 'package:fitnessai/feature/AI/domain/repository/detect_repository.dart';
 import 'package:fitnessai/feature/AI/presentation/cubit/detect_cubit.dart';
+import 'package:fitnessai/feature/AI/presentation/usecase/detect_usecase.dart';
 import 'package:fitnessai/feature/courses/data/datasource/courses_service.dart';
 import 'package:fitnessai/feature/courses/data/repository/datasource_repository_impl.dart';
 import 'package:fitnessai/feature/courses/domain/repository/courses_repository.dart';
@@ -84,5 +88,14 @@ void setup() {
   );
   getIt.registerFactory<CoursesService>(() => CoursesService(getIt<Dio>()));
   getIt.registerSingleton<CoursesCubit>(CoursesCubit(getIt<CoursesUsecase>()));
-  getIt.registerSingleton<DetectCubit>(DetectCubit());
+  getIt.registerFactory<DetectService>(() => DetectService(getIt<Dio>()));
+  getIt.registerFactory<DetectRepository>(
+    () => DetectRepositoryImpl(getIt<DetectService>()),
+  );
+  getIt.registerFactory<DetectUsecase>(
+    () => DetectUsecase(getIt<DetectRepository>()),
+  );
+  getIt.registerSingleton<DetectCubit>(
+    DetectCubit(detectUsecase: getIt<DetectUsecase>()),
+  );
 }
