@@ -1,3 +1,4 @@
+import 'package:fitnessai/feature/AI/presentation/cubit/detect_cubit.dart';
 import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart';
 import 'package:fitnessai/di.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
@@ -18,6 +19,7 @@ class HomePageController extends StatelessWidget {
     final AuthenticationCubit authenticationCubit = getIt.get();
     final CoursesCubit coursesCubit = getIt.get();
     final WorkoutCubit workoutCubit = getIt.get();
+    final DetectCubit detectCubit = getIt.get();
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: coreCubit),
@@ -25,6 +27,7 @@ class HomePageController extends StatelessWidget {
         BlocProvider.value(value: authenticationCubit),
         BlocProvider.value(value: coursesCubit),
         BlocProvider.value(value: workoutCubit),
+        BlocProvider.value(value: detectCubit),
       ],
       child: const HomePage(),
     );

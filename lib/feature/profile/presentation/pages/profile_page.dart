@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitnessai/feature/AI/controller/upload_video_controller.dart';
 import 'package:fitnessai/feature/authentication/controller/login_controller.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_state.dart';
@@ -138,11 +139,21 @@ class ProfilePage extends StatelessWidget {
                   genderDescription: state.loginResponse?.user.gender ?? '',
                 ),
                 SizedBox(height: 8.h),
-                FeatureCardWidget(
-                  title: "Upload Video",
-                  iconPath: "assets/icons/ic_upload.svg",
-                  title2: "Stream Video",
-                  iconPath2: "assets/icons/ic_camera.svg",
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UploadVideoController(),
+                      ),
+                    );
+                  },
+                  child: FeatureCardWidget(
+                    title: "Upload Video",
+                    iconPath: "assets/icons/ic_upload.svg",
+                    title2: "Stream Video",
+                    iconPath2: "assets/icons/ic_camera.svg",
+                  ),
                 ),
                 SizedBox(height: 8.h),
                 ChangeSettingCardWidget(
