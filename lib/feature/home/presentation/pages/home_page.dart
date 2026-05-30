@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fitnessai/feature/AI/presentation/cubit/detect_cubit.dart';
+import 'package:fitnessai/feature/AI/controller/upload_video_controller.dart';
 import 'package:fitnessai/feature/courses/presentation/cubit/courses_cubit.dart';
 import 'package:fitnessai/feature/courses/presentation/cubit/courses_state.dart';
 import 'package:fitnessai/feature/authentication/cubit/authentication_cubit.dart';
@@ -8,7 +8,6 @@ import 'package:fitnessai/feature/home/presentation/controller/category_detail_p
 import 'package:fitnessai/feature/home/presentation/controller/course_detail_controller.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_cubit.dart';
 import 'package:fitnessai/feature/home/presentation/cubit/core_state.dart';
-import 'package:fitnessai/feature/home/presentation/pages/category_detail_page.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/categories_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/class_widget.dart';
 import 'package:fitnessai/feature/home/presentation/widgets/step_count_widget.dart';
@@ -77,7 +76,12 @@ class _HomePageState extends State<HomePage> {
             centerTitle: true,
             leading: IconButton(
               onPressed: () {
-                context.read<DetectCubit>().pickVideoFromLibrary();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UploadVideoController(),
+                  ),
+                );
               },
               icon: Icon(Icons.qr_code_scanner_outlined, size: 25.sp),
             ),

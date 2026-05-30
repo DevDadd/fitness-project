@@ -29,10 +29,17 @@ class DetectCubit extends Cubit<DetectState> {
     String userId,
   ) async {
     var res = await detectUsecase.detect(videoUrl, exercise, mode, userId);
+    print('JOB ID FROM API: ${res.jobId}');
+
     emit(state.copyWith(uploadResult: res));
   }
 
   void clearVideo() {
     emit(DetectState());
+  }
+
+  Future<void> checkStatus(String jobId) async {
+    var res = await detectUsecase.getStatus(jobId);
+    emit(state.copyWith(statusResult: res));
   }
 }

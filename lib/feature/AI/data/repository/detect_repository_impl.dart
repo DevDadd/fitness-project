@@ -1,6 +1,7 @@
 import 'package:fitnessai/feature/AI/data/datasource/detect_service.dart';
 import 'package:fitnessai/feature/AI/data/model/analyze_exercises_request.dart';
 import 'package:fitnessai/feature/AI/data/model/detect_model.dart';
+import 'package:fitnessai/feature/AI/data/model/status_model.dart';
 import 'package:fitnessai/feature/AI/domain/repository/detect_repository.dart';
 
 class DetectRepositoryImpl implements DetectRepository {
@@ -24,6 +25,17 @@ class DetectRepositoryImpl implements DetectRepository {
           userId: userId,
         ),
       );
+      return response;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<StatusModel> getStatus(String jobId) async {
+    try {
+      final response = await _detectService.getAnalysisStatus(jobId);
       return response;
     } catch (e) {
       rethrow;

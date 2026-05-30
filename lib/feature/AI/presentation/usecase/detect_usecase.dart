@@ -14,4 +14,8 @@ class DetectUsecase {
   ) async {
     return await _detectRepository.detect(videoUrl, exercise, mode, userId);
   }
+
+  Future getStatus(String jobId) async {
+    return await _detectRepository.getStatus(jobId);
+  }
 }

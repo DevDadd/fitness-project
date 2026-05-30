@@ -11,6 +11,8 @@ abstract class _$DetectStateCWProxy {
 
   DetectState uploadResult(DetectModel? uploadResult);
 
+  DetectState statusResult(StatusModel? statusResult);
+
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `DetectState(...).copyWith.fieldName(value)`.
   ///
@@ -18,7 +20,11 @@ abstract class _$DetectStateCWProxy {
   /// ```dart
   /// DetectState(...).copyWith(id: 12, name: "My name")
   /// ```
-  DetectState call({XFile? video, DetectModel? uploadResult});
+  DetectState call({
+    XFile? video,
+    DetectModel? uploadResult,
+    StatusModel? statusResult,
+  });
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -36,6 +42,10 @@ class _$DetectStateCWProxyImpl implements _$DetectStateCWProxy {
       call(uploadResult: uploadResult);
 
   @override
+  DetectState statusResult(StatusModel? statusResult) =>
+      call(statusResult: statusResult);
+
+  @override
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `DetectState(...).copyWith.fieldName(value)`.
   ///
@@ -46,6 +56,7 @@ class _$DetectStateCWProxyImpl implements _$DetectStateCWProxy {
   DetectState call({
     Object? video = const $CopyWithPlaceholder(),
     Object? uploadResult = const $CopyWithPlaceholder(),
+    Object? statusResult = const $CopyWithPlaceholder(),
   }) {
     return DetectState(
       video: video == const $CopyWithPlaceholder()
@@ -56,6 +67,10 @@ class _$DetectStateCWProxyImpl implements _$DetectStateCWProxy {
           ? _value.uploadResult
           // ignore: cast_nullable_to_non_nullable
           : uploadResult as DetectModel?,
+      statusResult: statusResult == const $CopyWithPlaceholder()
+          ? _value.statusResult
+          // ignore: cast_nullable_to_non_nullable
+          : statusResult as StatusModel?,
     );
   }
 }

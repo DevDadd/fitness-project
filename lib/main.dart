@@ -1,7 +1,7 @@
 import 'package:fitnessai/di.dart';
+import 'package:fitnessai/feature/AI/controller/upload_video_controller.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_cubit.dart';
 import 'package:fitnessai/feature/core/localization/cubit/localize_state.dart';
-import 'package:fitnessai/feature/onboarding/presentation/onboarding_page.dart';
 import 'package:fitnessai/l10n/app_localization.dart';
 import 'package:fitnessai/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
             locale: Locale(state.currentLanguage.toString()),
             supportedLocales: L10n.all,
             debugShowCheckedModeBanner: false,
-            home: OnboardingPage(),
+            home: UploadVideoController(),
           ),
         );
       },
