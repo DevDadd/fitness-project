@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:fitnessai/feature/AI/presentation/cubit/detect_state.dart';
 import 'package:fitnessai/feature/AI/presentation/usecase/detect_usecase.dart';
@@ -6,7 +8,9 @@ import 'package:image_picker/image_picker.dart';
 class DetectCubit extends Cubit<DetectState> {
   final ImagePicker imagePicker = ImagePicker();
   final DetectUsecase detectUsecase;
+
   DetectCubit({required this.detectUsecase}) : super(DetectState());
+  Timer? _statusTimer;
 
   Future<void> pickVideoFromLibrary() async {
     try {
@@ -32,6 +36,9 @@ class DetectCubit extends Cubit<DetectState> {
     print('JOB ID FROM API: ${res.jobId}');
 
     emit(state.copyWith(uploadResult: res));
+    if (res.jobId != null) {
+      startCheckingStatus(res.jobId!);
+    }
   }
 
   void clearVideo() {
@@ -41,5 +48,26 @@ class DetectCubit extends Cubit<DetectState> {
   Future<void> checkStatus(String jobId) async {
     var res = await detectUsecase.getStatus(jobId);
     emit(state.copyWith(statusResult: res));
+  }
+
+  Future<void> startCheckingStatus(String jobId) async {
+    _statusTimer?.cancel();
+    await checkStatus(jobId);
+
+    if (state.statusResult?.resultUrl != null) {
+      return;
+    }
+
+    int count = 0;
+
+    _statusTimer = Timer.periodic(const Duration(minutes: 1), (timer) async {
+      count++;
+
+      await checkStatus(jobId);
+
+      if (state.statusResult?.resultUrl != null || count >= 4) {
+        timer.cancel();
+      }
+    });
   }
 }

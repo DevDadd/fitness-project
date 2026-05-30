@@ -31,7 +31,12 @@ class _UploadVideoPageState extends State<UploadVideoPage> {
         if (state.statusResult?.resultUrl != null) {
           Navigator.push(
             context,
-            CupertinoSheetRoute(builder: (context) => VideoResultPage()),
+            CupertinoSheetRoute(
+              builder: (context) => VideoResultPage(
+                resultUrl: state.statusResult!.resultUrl!,
+                response: state.statusResult!.llmResponse!,
+              ),
+            ),
           );
         }
       },
