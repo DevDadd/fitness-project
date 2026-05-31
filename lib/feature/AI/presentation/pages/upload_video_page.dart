@@ -139,30 +139,32 @@ class _UploadVideoPageState extends State<UploadVideoPage> {
                       padding: const EdgeInsets.all(12.0),
                       child: Row(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.video?.name ?? "No video selected",
-                                style: GoogleFonts.manrope(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.video?.name ?? "No video selected",
+                                  style: GoogleFonts.manrope(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              SizedBox(height: 6.h),
-                              Text(
-                                state.video != null
-                                    ? '${fileSizeMb!.toStringAsFixed(2)} MB'
-                                    : '--',
-                                style: GoogleFonts.manrope(
-                                  fontSize: 14.sp,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w400,
+                                SizedBox(height: 6.h),
+                                Text(
+                                  state.video != null
+                                      ? '${fileSizeMb!.toStringAsFixed(2)} MB'
+                                      : '--',
+                                  style: GoogleFonts.manrope(
+                                    fontSize: 14.sp,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           Spacer(),
                           Container(
