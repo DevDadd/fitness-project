@@ -35,6 +35,9 @@ class _VideoResultPageState extends State<VideoResultPage> {
       setState(() {});
       _controller.play();
     });
+    print('VIDEO RESULT PAGE INIT');
+    print('resultUrl: ${widget.resultUrl}');
+    print('response: ${widget.response}');
   }
 
   @override

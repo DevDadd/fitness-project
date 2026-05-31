@@ -59,7 +59,7 @@ class _DetectService implements DetectService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/analysis/${jobId}/status/',
+            '/api/analysis/${jobId}/status/',
             queryParameters: queryParameters,
             data: _data,
           )

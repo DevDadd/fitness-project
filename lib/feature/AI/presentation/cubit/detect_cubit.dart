@@ -46,15 +46,47 @@ class DetectCubit extends Cubit<DetectState> {
   }
 
   Future<void> checkStatus(String jobId) async {
-    var res = await detectUsecase.getStatus(jobId);
-    emit(state.copyWith(statusResult: res));
+    try {
+      print('==============================');
+      print('CHECK STATUS');
+      print('jobId: $jobId');
+
+      final res = await detectUsecase.getStatus(jobId);
+
+      print('success: ${res.success}');
+      print('status: ${res.status}');
+      print('resultUrl: ${res.resultUrl}');
+      print('analysis null: ${res.analysis == null}');
+
+      emit(state.copyWith(statusResult: res));
+
+      print('STATUS UPDATED TO STATE');
+      print('==============================');
+    } catch (e) {
+      print('CHECK STATUS ERROR: $e');
+    }
   }
 
   Future<void> startCheckingStatus(String jobId) async {
     _statusTimer?.cancel();
+
+    print('========================================');
+    print('START POLLING');
+    print('jobId: $jobId');
+    print('========================================');
+
     await checkStatus(jobId);
 
-    if (state.statusResult?.resultUrl != null) {
+    if (state.statusResult?.status == 'done') {
+      print('JOB COMPLETED ON FIRST CHECK');
+
+      if (state.statusResult?.resultUrl == null) {
+        print('DONE BUT RESULT URL IS NULL');
+      } else {
+        print('DONE WITH RESULT URL');
+        print(state.statusResult?.resultUrl);
+      }
+
       return;
     }
 
@@ -63,10 +95,40 @@ class DetectCubit extends Cubit<DetectState> {
     _statusTimer = Timer.periodic(const Duration(minutes: 1), (timer) async {
       count++;
 
+      print('========================================');
+      print('POLLING ATTEMPT #$count');
+      print('jobId: $jobId');
+      print('time: ${DateTime.now()}');
+      print('========================================');
+
       await checkStatus(jobId);
 
-      if (state.statusResult?.resultUrl != null || count >= 4) {
+      final status = state.statusResult?.status;
+      final resultUrl = state.statusResult?.resultUrl;
+
+      print('CURRENT STATUS: $status');
+      print('CURRENT RESULT URL: $resultUrl');
+
+      if (status == 'done') {
+        print('JOB COMPLETED');
+
+        if (resultUrl == null) {
+          print('DONE BUT RESULT URL IS NULL');
+        } else {
+          print('DONE WITH RESULT URL');
+          print(resultUrl);
+        }
+
         timer.cancel();
+        _statusTimer = null;
+
+        print('POLLING STOPPED');
+      } else if (count >= 4) {
+        print('MAX POLLING ATTEMPTS REACHED');
+        print('LAST STATUS: $status');
+
+        timer.cancel();
+        _statusTimer = null;
       }
     });
   }

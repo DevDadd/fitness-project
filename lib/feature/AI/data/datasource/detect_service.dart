@@ -13,6 +13,6 @@ abstract class DetectService {
   @POST("/api/analysis/upload/")
   Future<DetectModel> detect(@Body() AnalyzeExerciseRequest videoUrl);
 
-  @GET('/analysis/{job_id}/status/')
+  @GET('/api/analysis/{job_id}/status/')
   Future<StatusModel> getAnalysisStatus(@Path('job_id') String jobId);
 }

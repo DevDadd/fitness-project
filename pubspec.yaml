@@ -65,6 +65,7 @@ dependencies:
   dotted_border: ^3.1.0
   video_player: ^2.11.1
   aws_s3_api: ^2.0.0
+  chewie: ^1.13.1
 
 dev_dependencies:
   flutter_test:
